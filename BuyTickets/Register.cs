@@ -12,26 +12,19 @@ using MaterialSkin;
 
 namespace BuyTickets
 {
-    public partial class Login : MaterialForm
+    public partial class Register : MaterialForm
     {
-        public Login()
+        public Register()
         {
             InitializeComponent();
-            // Подключение MaterialSkin'a
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Register_Load(object sender, EventArgs e)
         {
 
-        }
-
-        private void Register_Click(object sender, EventArgs e)
-        {
-            Register form = new Register();
-            form.Show();
         }
     }
 }

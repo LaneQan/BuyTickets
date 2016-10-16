@@ -1,6 +1,6 @@
 ﻿namespace BuyTickets
 {
-    partial class Form1
+    partial class Login
     {
         /// <summary>
         /// Required designer variable.
@@ -33,19 +33,19 @@
             this.materialSingleLineTextField1 = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.Enter = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialSingleLineTextField2 = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.Register = new MaterialSkin.Controls.MaterialFlatButton();
+            this.buttonRegister = new MaterialSkin.Controls.MaterialFlatButton();
             this.SuspendLayout();
             // 
             // labelLogin
             // 
             this.labelLogin.AutoSize = true;
             this.labelLogin.Depth = 0;
-            this.labelLogin.Font = new System.Drawing.Font("Roboto", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelLogin.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelLogin.Location = new System.Drawing.Point(41, 96);
             this.labelLogin.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelLogin.Name = "labelLogin";
-            this.labelLogin.Size = new System.Drawing.Size(82, 29);
+            this.labelLogin.Size = new System.Drawing.Size(53, 19);
             this.labelLogin.TabIndex = 0;
             this.labelLogin.Text = "Логин";
             // 
@@ -53,12 +53,12 @@
             // 
             this.labelPassword.AutoSize = true;
             this.labelPassword.Depth = 0;
-            this.labelPassword.Font = new System.Drawing.Font("Roboto", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelPassword.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelPassword.Location = new System.Drawing.Point(41, 146);
             this.labelPassword.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelPassword.Name = "labelPassword";
-            this.labelPassword.Size = new System.Drawing.Size(97, 29);
+            this.labelPassword.Size = new System.Drawing.Size(62, 19);
             this.labelPassword.TabIndex = 1;
             this.labelPassword.Text = "Пароль";
             // 
@@ -110,26 +110,28 @@
             this.materialSingleLineTextField2.TabIndex = 4;
             this.materialSingleLineTextField2.UseSystemPasswordChar = false;
             // 
-            // Register
+            // buttonRegister
             // 
-            this.Register.AutoSize = true;
-            this.Register.Depth = 0;
-            this.Register.Location = new System.Drawing.Point(154, 255);
-            this.Register.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.Register.MouseState = MaterialSkin.MouseState.HOVER;
-            this.Register.Name = "Register";
-            this.Register.Primary = false;
-            this.Register.Size = new System.Drawing.Size(184, 36);
-            this.Register.TabIndex = 5;
-            this.Register.Text = "Не зарегистрированы?";
-            this.Register.UseVisualStyleBackColor = true;
+            this.buttonRegister.AutoSize = true;
+            this.buttonRegister.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonRegister.Depth = 0;
+            this.buttonRegister.Location = new System.Drawing.Point(154, 255);
+            this.buttonRegister.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonRegister.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonRegister.Name = "buttonRegister";
+            this.buttonRegister.Primary = false;
+            this.buttonRegister.Size = new System.Drawing.Size(184, 36);
+            this.buttonRegister.TabIndex = 5;
+            this.buttonRegister.Text = "Не зарегистрированы?";
+            this.buttonRegister.UseVisualStyleBackColor = true;
+            this.buttonRegister.Click += new System.EventHandler(this.Register_Click);
             // 
-            // Form1
+            // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(350, 300);
-            this.Controls.Add(this.Register);
+            this.Controls.Add(this.buttonRegister);
             this.Controls.Add(this.materialSingleLineTextField2);
             this.Controls.Add(this.Enter);
             this.Controls.Add(this.materialSingleLineTextField1);
@@ -137,7 +139,7 @@
             this.Controls.Add(this.labelLogin);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "Login";
             this.Text = "Авторизация";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -152,7 +154,7 @@
         private MaterialSkin.Controls.MaterialSingleLineTextField materialSingleLineTextField1;
         private MaterialSkin.Controls.MaterialFlatButton Enter;
         private MaterialSkin.Controls.MaterialSingleLineTextField materialSingleLineTextField2;
-        private MaterialSkin.Controls.MaterialFlatButton Register;
+        private MaterialSkin.Controls.MaterialFlatButton buttonRegister;
     }
 }
 
