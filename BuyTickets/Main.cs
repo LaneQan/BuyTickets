@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MaterialSkin.Controls;
 using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace BuyTickets
 {
-    public partial class Login : MaterialForm
+    public partial class Main : MaterialForm
     {
-        public Login()
+        public Main()
         {
             InitializeComponent();
             // Подключение MaterialSkin'a
@@ -23,15 +23,9 @@ namespace BuyTickets
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Main_Load(object sender, EventArgs e)
         {
 
-        }
-
-        private void Register_Click(object sender, EventArgs e)
-        {
-            Register form = new Register();
-            form.Show();
         }
     }
 }
