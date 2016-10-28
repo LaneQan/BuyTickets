@@ -20,11 +20,17 @@ namespace BuyTickets
             // Подключение MaterialSkin'a
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT; 
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
+            for (int i = 0; i < imageList1.Images.Count; i++)
+            {
+                string name = imageList1.Images.Keys[i].ToString().Remove(imageList1.Images.Keys[i].ToString().IndexOf("."));
+                listView1.Items.Add(name).ImageIndex = i;
+            }
+
 
         }
     }
