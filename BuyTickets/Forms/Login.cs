@@ -15,6 +15,32 @@ namespace BuyTickets
 {
     public partial class Login : MaterialForm
     {
+        private bool Auth (string loginFromForm, string passFromForm)
+        {
+            bool success = false;
+            const string databaseName = @"X:\Learning\BuyTickets\BuyTickets\DB\BT.sqlite";
+            SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
+            connection.Open();
+
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Password FROM Users WHERE Login='" + loginFromForm + "';", connection);
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                string passFromDB = reader["Password"].ToString();
+                if (passFromDB == passFromForm)
+                {
+                    success = true;
+                }
+                else
+                {
+                    success = false;
+                }
+                
+            }
+            reader.Close();
+            connection.Close();
+            return success;
+        }
         public Login()
         {
             InitializeComponent();
@@ -37,21 +63,18 @@ namespace BuyTickets
 
         private void Enter_Click(object sender, EventArgs e)
         {
-            var Login = materialSingleLineTextField1;
-            var Pass = materialSingleLineTextField2;
-            const string databaseName = @"X:\Learning\BuyTickets\BuyTickets\DB\BT.sqlite";
-            SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
-            connection.Open();
+            string loginFromForm = materialSingleLineTextField1.Text;
+            string passFromForm = materialSingleLineTextField2.Text;
+            if (Auth(loginFromForm, passFromForm) == true)
+            {
+                Main form = new Main();
+                form.Show();
+                this.Visible = false;
+            }
+            else MessageBox.Show("Неправильный логин или пароль");
 
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Password FROM 'Users' WHERE Login = @Login;", connection);
-            cmd.Parameters.AddWithValue("@Login", Login);
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-                MessageBox.Show(reader["Login"].ToString());
-            connection.Close();
+              
 
-            Main form = new Main();
-            form.Show();
         }
     }
 }

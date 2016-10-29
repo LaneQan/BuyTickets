@@ -119,6 +119,7 @@
             this.Name = "Main";
             this.Sizable = false;
             this.Text = "BuyTickets";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
             this.Load += new System.EventHandler(this.Main_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
