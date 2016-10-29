@@ -248,7 +248,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 400);
+            this.ClientSize = new System.Drawing.Size(350, 390);
             this.Controls.Add(this.materialFlatButton1);
             this.Controls.Add(this.materialCheckBox1);
             this.Controls.Add(this.materialSingleLineTextField6);
