@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
 using MaterialSkin;
+using System.Data.SQLite;
+
 namespace BuyTickets
 {
     public partial class Login : MaterialForm
@@ -35,6 +37,19 @@ namespace BuyTickets
 
         private void Enter_Click(object sender, EventArgs e)
         {
+            var Login = materialSingleLineTextField1;
+            var Pass = materialSingleLineTextField2;
+            const string databaseName = @"X:\Learning\BuyTickets\BuyTickets\DB\BT.sqlite";
+            SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
+            connection.Open();
+
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Password FROM 'Users' WHERE Login = @Login;", connection);
+            cmd.Parameters.AddWithValue("@Login", Login);
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+                MessageBox.Show(reader["Login"].ToString());
+            connection.Close();
+
             Main form = new Main();
             form.Show();
         }
