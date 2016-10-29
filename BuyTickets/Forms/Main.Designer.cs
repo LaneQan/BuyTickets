@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.listView1 = new System.Windows.Forms.ListView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
@@ -43,7 +42,6 @@
             this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.listView1.Font = new System.Drawing.Font("Arial", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.listView1.LargeImageList = this.imageList1;
             this.listView1.Location = new System.Drawing.Point(0, 110);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
@@ -54,19 +52,9 @@
             // 
             // imageList1
             // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(160, 246);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "Mad Max.jpg");
-            this.imageList1.Images.SetKeyName(1, "X-men.jpg");
-            this.imageList1.Images.SetKeyName(2, "Воздушная тюрьма.jpg");
-            this.imageList1.Images.SetKeyName(3, "Выживший.jpg");
-            this.imageList1.Images.SetKeyName(4, "Колония.jpg");
-            this.imageList1.Images.SetKeyName(5, "Марсианин.jpg");
-            this.imageList1.Images.SetKeyName(6, "Мстители.jpg");
-            this.imageList1.Images.SetKeyName(7, "Ультраамериканцы.jpg");
-            this.imageList1.Images.SetKeyName(8, "Училка.jpg");
-            this.imageList1.Images.SetKeyName(9, "Человек-муравей.jpg");
-            this.imageList1.Images.SetKeyName(10, "Шерлок Холмс.jpg");
             // 
             // materialLabel1
             // 

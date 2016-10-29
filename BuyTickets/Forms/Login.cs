@@ -18,7 +18,7 @@ namespace BuyTickets
         private bool Auth (string loginFromForm, string passFromForm)
         {
             bool success = false;
-            const string databaseName = @"X:\Learning\BuyTickets\BuyTickets\DB\BT.sqlite";
+            const string databaseName = @"..\..\DB\BT.sqlite";
             SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
             connection.Open();
 
@@ -59,21 +59,26 @@ namespace BuyTickets
         {
             Register form = new Register();
             form.Show();
+            this.Visible = false;
         }
 
         private void Enter_Click(object sender, EventArgs e)
         {
             string loginFromForm = materialSingleLineTextField1.Text;
             string passFromForm = materialSingleLineTextField2.Text;
-            if (Auth(loginFromForm, passFromForm) == true)
+            /* if (Auth(loginFromForm, passFromForm) == true)
             {
                 Main form = new Main();
                 form.Show();
                 this.Visible = false;
             }
-            else MessageBox.Show("Неправильный логин или пароль");
+            else MessageBox.Show("Неправильный логин или пароль"); */
 
-              
+            Main form = new Main();
+            form.Show();
+            this.Visible = false;
+
+
 
         }
     }
