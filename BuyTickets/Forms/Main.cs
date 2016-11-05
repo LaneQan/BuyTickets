@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using System.Data.SQLite;
-
+using BuyTickets.Forms;
 
 namespace BuyTickets
 {
@@ -32,7 +32,6 @@ namespace BuyTickets
             }
             reader.Close();
             connection.Close();
-            listView1.LargeImageList = imageList1;
             for (int i = 0; i < imageList1.Images.Count; i++)
             {
                 listView1.Items.Add(imageList1.Images.Keys[i].ToString()).ImageIndex = i;
@@ -52,7 +51,7 @@ namespace BuyTickets
         private void Main_Load(object sender, EventArgs e)
         {
             SessionsLoad();
-
+            materialLabel1.Text += " ( " + DateTime.Now.ToString("dd.MM.y") + " )";
 
         }
 
@@ -64,6 +63,13 @@ namespace BuyTickets
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void materialRaisedButton1_Click(object sender, EventArgs e)
+        {
+            Personal form = new Personal();
+            form.Show();
+            this.Visible = false;
         }
     }
 }

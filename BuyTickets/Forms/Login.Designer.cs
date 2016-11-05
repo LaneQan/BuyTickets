@@ -125,7 +125,7 @@
             this.buttonRegister.Size = new System.Drawing.Size(184, 36);
             this.buttonRegister.TabIndex = 5;
             this.buttonRegister.Text = "Не зарегистрированы?";
-            this.buttonRegister.UseVisualStyleBackColor = true;
+            this.buttonRegister.UseVisualStyleBackColor = false;
             this.buttonRegister.Click += new System.EventHandler(this.Register_Click);
             // 
             // materialCheckBox1

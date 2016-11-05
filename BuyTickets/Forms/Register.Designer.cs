@@ -267,6 +267,7 @@
             this.MinimizeBox = false;
             this.Name = "Register";
             this.Text = "Регистрация";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Register_FormClosed);
             this.Load += new System.EventHandler(this.Register_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -18,3 +18,5 @@ X:\Learning\BuyTickets\BuyTickets\bin\Debug\EntityFramework.xml
 X:\Learning\BuyTickets\BuyTickets\bin\Debug\EntityFramework.SqlServer.xml
 X:\Learning\BuyTickets\BuyTickets\bin\Debug\System.Data.SQLite.xml
 X:\Learning\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Main.resources
+X:\Learning\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Forms.Personal.resources
+X:\Learning\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Forms.Session.resources

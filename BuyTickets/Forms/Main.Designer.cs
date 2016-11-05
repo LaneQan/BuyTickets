@@ -41,7 +41,8 @@
             this.listView1.BackColor = System.Drawing.SystemColors.Info;
             this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.listView1.Font = new System.Drawing.Font("Arial", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView1.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView1.LargeImageList = this.imageList1;
             this.listView1.Location = new System.Drawing.Point(0, 110);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
@@ -65,9 +66,9 @@
             this.materialLabel1.Location = new System.Drawing.Point(19, 77);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(204, 19);
+            this.materialLabel1.Size = new System.Drawing.Size(146, 19);
             this.materialLabel1.TabIndex = 1;
-            this.materialLabel1.Text = "Сеансы на данный момент";
+            this.materialLabel1.Text = "Сеансы на сегодня";
             // 
             // materialRaisedButton1
             // 
@@ -80,6 +81,7 @@
             this.materialRaisedButton1.TabIndex = 2;
             this.materialRaisedButton1.Text = "Личный кабинет";
             this.materialRaisedButton1.UseVisualStyleBackColor = true;
+            this.materialRaisedButton1.Click += new System.EventHandler(this.materialRaisedButton1_Click);
             // 
             // materialLabel2
             // 
@@ -87,12 +89,12 @@
             this.materialLabel2.Depth = 0;
             this.materialLabel2.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel2.Location = new System.Drawing.Point(500, 77);
+            this.materialLabel2.Location = new System.Drawing.Point(485, 77);
             this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel2.Name = "materialLabel2";
-            this.materialLabel2.Size = new System.Drawing.Size(114, 19);
+            this.materialLabel2.Size = new System.Drawing.Size(130, 19);
             this.materialLabel2.TabIndex = 3;
-            this.materialLabel2.Text = "Баланс: 2,7 руб";
+            this.materialLabel2.Text = "Баланс: 23,75 руб";
             // 
             // Main
             // 
