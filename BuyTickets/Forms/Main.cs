@@ -11,33 +11,13 @@ using MaterialSkin;
 using MaterialSkin.Controls;
 using System.Data.SQLite;
 using BuyTickets.Forms;
+using BuyTickets.DB;
 
 namespace BuyTickets
 {
 
     public partial class Main : MaterialForm
     {
-        public void SessionsLoad()
-        {
-
-            const string databaseName = @"..\..\DB\BT.sqlite";
-            SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
-            connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM Sessions;", connection);
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                string path = @"..\..\Images\" + reader["Id"].ToString() + ".jpg";
-                imageList1.Images.Add(reader["Name"].ToString(), Image.FromFile(path));
-            }
-            reader.Close();
-            connection.Close();
-            for (int i = 0; i < imageList1.Images.Count; i++)
-            {
-                listView1.Items.Add(imageList1.Images.Keys[i].ToString()).ImageIndex = i;
-            }
-        }
-
         public Main()
         {
             InitializeComponent();
@@ -50,7 +30,8 @@ namespace BuyTickets
 
         private void Main_Load(object sender, EventArgs e)
         {
-            SessionsLoad();
+            Database DB = new Database();
+            DB.SessionsLoad(imageList1, listView1);
             materialLabel1.Text += " ( " + DateTime.Now.ToString("dd.MM.y") + " )";
 
         }
