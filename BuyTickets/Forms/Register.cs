@@ -44,13 +44,13 @@ namespace BuyTickets
                     Database DB = new Database();
                     if (DB.canRegisterOrNot(materialSingleLineTextField2.Text, materialSingleLineTextField1.Text))
                     {
-                        DB.Registration(materialSingleLineTextField2.Text,
-                            materialSingleLineTextField1.Text,
+                        DB.Registration(materialSingleLineTextField1.Text,
+                            materialSingleLineTextField2.Text,
                             materialSingleLineTextField3.Text,
                             materialSingleLineTextField4.Text,
                             materialSingleLineTextField5.Text,
                             materialSingleLineTextField6.Text);
-                        Main form = new Main();
+                        Main form = new Main(0);
                         form.Show();
                         this.Visible = false;
                     }

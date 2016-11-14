@@ -2,6 +2,8 @@
 using System.Windows.Forms;
 using System.Drawing;
 using System;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace BuyTickets.DB
 {
@@ -11,22 +13,25 @@ namespace BuyTickets.DB
         SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
 
         // Авторизация | Проверка пароля по логину
-        public bool Auth(string loginFromForm, string passFromForm)
+        public void Auth(string loginFromForm, string passFromForm, out int isAdmin, out bool success)
         {
-            bool success = false;
+            success = false;
+            isAdmin = 0;
             connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Password FROM Users WHERE Login='" + loginFromForm + "';");
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Password,IsAdmin FROM Users WHERE Login='" + loginFromForm + "';", connection);
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                if (reader["Password"].ToString() == passFromForm)
+                if (reader["Password"].ToString() == MD5crypt(passFromForm))
+                {
+                    isAdmin = Convert.ToInt16(reader["isAdmin"]);
                     success = true;
+                }
                 else
                     success = false;
             }
             reader.Close();
             connection.Close();
-            return success;
         }
         // Загрузка сеансов в главном окне
         public void SessionsLoad(ImageList imageList, ListView listView)
@@ -53,7 +58,7 @@ namespace BuyTickets.DB
             SQLiteCommand cmd = new SQLiteCommand("INSERT INTO 'Users' (Login, Password, Name, Surname, Phone, Mail, isAdmin)"
             + "VALUES (@LoginParam, @PasswordParam, @NameParam, @SurnameParam, @PhoneParam, @MailParam, @isAdmin)", connection);
             cmd.Parameters.AddWithValue("@LoginParam", Login);
-            cmd.Parameters.AddWithValue("@PasswordParam", Pass);
+            cmd.Parameters.AddWithValue("@PasswordParam", MD5crypt(Pass));
             cmd.Parameters.AddWithValue("@NameParam", Name);
             cmd.Parameters.AddWithValue("@SurnameParam", Surname);
             cmd.Parameters.AddWithValue("@PhoneParam", Phone);
@@ -76,6 +81,16 @@ namespace BuyTickets.DB
             }
             connection.Close();
             return canRegister;
+        }
+        private string MD5crypt(string toCrypt)
+        {
+            MD5 md5 = System.Security.Cryptography.MD5.Create();
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(toCrypt);
+            byte[] hash = md5.ComputeHash(inputBytes);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+                sb.Append(hash[i].ToString("X2"));
+            return sb.ToString();
         }
     }
 }

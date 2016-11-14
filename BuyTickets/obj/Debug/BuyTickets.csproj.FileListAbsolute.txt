@@ -20,3 +20,4 @@ X:\Learning\BuyTickets\BuyTickets\bin\Debug\System.Data.SQLite.xml
 X:\Learning\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Main.resources
 X:\Learning\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Forms.Personal.resources
 X:\Learning\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Forms.Session.resources
+X:\Learning\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Forms.AdminPanel.resources

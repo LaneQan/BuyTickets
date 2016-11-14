@@ -2,11 +2,13 @@
 using MaterialSkin.Controls;
 using MaterialSkin;
 using BuyTickets.DB;
+using System.Windows.Forms;
 
 namespace BuyTickets
 {
     public partial class Login : MaterialForm
     {
+        int isAdmin = 0;
         public Login()
         {
             InitializeComponent();
@@ -28,18 +30,20 @@ namespace BuyTickets
 
         private void Enter_Click(object sender, EventArgs e)
         {
-           /* Database DB = new Database();
-             if (test.Auth(materialSingleLineTextField1.Text, materialSingleLineTextField2.Text))
+            bool success;
+            Database DB = new Database();
+            DB.Auth(materialSingleLineTextField1.Text, materialSingleLineTextField2.Text, out isAdmin, out success);
+            if (success)
             {
-                Main form = new Main();
+                Main form = new Main(this.isAdmin);
                 form.Show();
                 this.Visible = false;
-            }
+            } 
             else MessageBox.Show("Неправильный логин или пароль"); 
-                */
+            /*
             Main form = new Main();
             form.Show();
-            this.Visible = false;
+            this.Visible = false; */
         }
     }
 }
