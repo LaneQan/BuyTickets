@@ -38,7 +38,7 @@
             // 
             // listView1
             // 
-            this.listView1.BackColor = System.Drawing.SystemColors.Info;
+            this.listView1.BackColor = System.Drawing.SystemColors.Window;
             this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.listView1.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
