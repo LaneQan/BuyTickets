@@ -29,28 +29,5 @@ namespace BuyTickets.Forms
             form.Show();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            textBox1.Text = "";
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //TODO: SQL проверка на админку
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //TODO: SQL изменение админки
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-        }
-
-        private void textBox1_Click(object sender, EventArgs e)
-        {
-            textBox1.Text = "";
-        }
     }
 }

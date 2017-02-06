@@ -41,7 +41,7 @@ namespace BuyTickets
                 if (err == null)
                 {
                     Database DB = new Database();
-                    if (DB.userOnBase(materialSingleLineTextField2.Text, materialSingleLineTextField1.Text))
+                    if (!DB.userOnBase(materialSingleLineTextField2.Text, materialSingleLineTextField1.Text))
                     {
                         DB.Registration(materialSingleLineTextField1.Text,
                             materialSingleLineTextField2.Text,
@@ -49,7 +49,7 @@ namespace BuyTickets
                             materialSingleLineTextField4.Text,
                             materialSingleLineTextField5.Text,
                             materialSingleLineTextField6.Text);
-                        Main form = new Main(0);
+                        Main form = new Main(0,0);
                         form.Show();
                         this.Visible = false;
                     }

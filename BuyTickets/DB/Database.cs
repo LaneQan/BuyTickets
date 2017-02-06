@@ -9,22 +9,24 @@ namespace BuyTickets.DB
 {
     internal class Database
     {
-        private const string databaseName = @"..\..\DB\BT.sqlite";
+        private const string databaseName = @"..\..\DB\BT.db";
         private SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
 
         // Авторизация | Проверка пароля по логину
-        public void Auth(string loginFromForm, string passFromForm, out int isAdmin, out bool success)
+        public void Auth(string loginFromForm, string passFromForm, out int isAdmin, out int balance, out bool success)
         {
             success = false;
             isAdmin = 0;
+            balance = 0;
             connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Password,IsAdmin FROM Users WHERE Login='" + loginFromForm + "';", connection);
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Password,IsAdmin,Balance FROM Users WHERE Login='" + loginFromForm + "';", connection);
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 if (reader["Password"].ToString() == MD5crypt(passFromForm))
                 {
                     isAdmin = Convert.ToInt16(reader["isAdmin"]);
+                    balance = Convert.ToInt16(reader["Balance"]);
                     success = true;
                 }
                 else
@@ -57,8 +59,8 @@ namespace BuyTickets.DB
         public void Registration(string Mail, string Login, string Pass, string Name, string Surname, string Phone)
         {
             connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("INSERT INTO 'Users' (Login, Password, Name, Surname, Phone, Mail, isAdmin)"
-            + "VALUES (@LoginParam, @PasswordParam, @NameParam, @SurnameParam, @PhoneParam, @MailParam, @isAdmin)", connection);
+            SQLiteCommand cmd = new SQLiteCommand("INSERT INTO 'Users' (Login, Password, Name, Surname, Phone, Mail, isAdmin, Balance)"
+            + "VALUES (@LoginParam, @PasswordParam, @NameParam, @SurnameParam, @PhoneParam, @MailParam, @isAdmin, @Balance)", connection);
             cmd.Parameters.AddWithValue("@LoginParam", Login);
             cmd.Parameters.AddWithValue("@PasswordParam", MD5crypt(Pass));
             cmd.Parameters.AddWithValue("@NameParam", Name);
@@ -66,6 +68,7 @@ namespace BuyTickets.DB
             cmd.Parameters.AddWithValue("@PhoneParam", Phone);
             cmd.Parameters.AddWithValue("@MailParam", Mail);
             cmd.Parameters.AddWithValue("@isAdmin", false);
+            cmd.Parameters.AddWithValue("@Balance", 0);
             cmd.ExecuteNonQuery();
             connection.Close();
         }

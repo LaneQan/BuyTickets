@@ -34,6 +34,7 @@
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.materialRaisedButton1 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // listView1
@@ -66,9 +67,9 @@
             this.materialLabel1.Location = new System.Drawing.Point(19, 77);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(146, 19);
+            this.materialLabel1.Size = new System.Drawing.Size(148, 19);
             this.materialLabel1.TabIndex = 1;
-            this.materialLabel1.Text = "Сеансы на сегодня";
+            this.materialLabel1.Text = "Выбор даты сеанса";
             // 
             // materialRaisedButton1
             // 
@@ -92,15 +93,22 @@
             this.materialLabel2.Location = new System.Drawing.Point(485, 77);
             this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel2.Name = "materialLabel2";
-            this.materialLabel2.Size = new System.Drawing.Size(130, 19);
+            this.materialLabel2.Size = new System.Drawing.Size(0, 19);
             this.materialLabel2.TabIndex = 3;
-            this.materialLabel2.Text = "Баланс: 23,75 руб";
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(173, 77);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(116, 20);
+            this.dateTimePicker1.TabIndex = 5;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(830, 688);
+            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.materialLabel2);
             this.Controls.Add(this.materialRaisedButton1);
             this.Controls.Add(this.materialLabel1);
@@ -123,5 +131,6 @@
         private System.Windows.Forms.ImageList imageList1;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton1;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

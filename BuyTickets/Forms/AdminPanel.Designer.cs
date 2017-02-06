@@ -105,7 +105,7 @@
             this.Controls.Add(this.materialFlatButton2);
             this.Controls.Add(this.materialFlatButton1);
             this.Name = "AdminPanel";
-            this.Text = "AdminPanel";
+            this.Text = "Кабинет Администратора";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminPanel_FormClosed);
             this.Load += new System.EventHandler(this.AdminPanel_Load);
             this.ResumeLayout(false);

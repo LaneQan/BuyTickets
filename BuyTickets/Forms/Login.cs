@@ -9,6 +9,7 @@ namespace BuyTickets
     public partial class Login : MaterialForm
     {
         private int isAdmin = 0;
+        private int balance = 0;
 
         public Login()
         {
@@ -33,10 +34,10 @@ namespace BuyTickets
         {
             bool success;
             Database DB = new Database();
-            DB.Auth(materialSingleLineTextField1.Text, materialSingleLineTextField2.Text, out isAdmin, out success);
+            DB.Auth(materialSingleLineTextField1.Text, materialSingleLineTextField2.Text, out isAdmin, out balance, out success);
             if (success)
             {
-                Main form = new Main(this.isAdmin);
+                Main form = new Main(this.isAdmin, balance);
                 form.Show();
                 this.Visible = false;
             }

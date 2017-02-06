@@ -19,7 +19,8 @@ namespace BuyTickets
     public partial class Main : MaterialForm
     {
         int isAdmin = 0;
-        public Main(int isAdmin)
+        int balance = 0;
+        public Main(int isAdmin, int balance)
         {
             InitializeComponent();
             // Подключение MaterialSkin'a
@@ -27,6 +28,7 @@ namespace BuyTickets
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             this.isAdmin = isAdmin;
+            this.balance = balance;
 
         }
 
@@ -35,12 +37,12 @@ namespace BuyTickets
         {
             Database DB = new Database();
             DB.SessionsLoad(imageList1, listView1);
-            materialLabel1.Text += " ( " + DateTime.Now.ToString("dd.MM.y") + " )";
             if (isAdmin==1)
             {
                 materialRaisedButton1.Text = "Кабинет администратора";
                 materialLabel2.Text = "";
             }
+            materialLabel2.Text = "Баланс: " + Convert.ToString(balance) + " руб";
 
         }
 
