@@ -31,7 +31,7 @@
             this.labelLogin = new MaterialSkin.Controls.MaterialLabel();
             this.labelPassword = new MaterialSkin.Controls.MaterialLabel();
             this.materialSingleLineTextField1 = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.Enter = new MaterialSkin.Controls.MaterialFlatButton();
+            this.EnterToProgramm = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialSingleLineTextField2 = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.buttonRegister = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialCheckBox1 = new MaterialSkin.Controls.MaterialCheckBox();
@@ -77,24 +77,25 @@
             this.materialSingleLineTextField1.SelectionStart = 0;
             this.materialSingleLineTextField1.Size = new System.Drawing.Size(165, 23);
             this.materialSingleLineTextField1.TabIndex = 2;
+            this.materialSingleLineTextField1.Text = "admin";
             this.materialSingleLineTextField1.UseSystemPasswordChar = false;
             // 
-            // Enter
+            // EnterToProgramm
             // 
-            this.Enter.AutoSize = true;
-            this.Enter.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Enter.Depth = 0;
-            this.Enter.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Enter.Location = new System.Drawing.Point(146, 197);
-            this.Enter.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.Enter.MouseState = MaterialSkin.MouseState.HOVER;
-            this.Enter.Name = "Enter";
-            this.Enter.Primary = false;
-            this.Enter.Size = new System.Drawing.Size(58, 36);
-            this.Enter.TabIndex = 3;
-            this.Enter.Text = "Войти";
-            this.Enter.UseVisualStyleBackColor = true;
-            this.Enter.Click += new System.EventHandler(this.Enter_Click);
+            this.EnterToProgramm.AutoSize = true;
+            this.EnterToProgramm.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.EnterToProgramm.Depth = 0;
+            this.EnterToProgramm.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.EnterToProgramm.Location = new System.Drawing.Point(146, 197);
+            this.EnterToProgramm.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.EnterToProgramm.MouseState = MaterialSkin.MouseState.HOVER;
+            this.EnterToProgramm.Name = "EnterToProgramm";
+            this.EnterToProgramm.Primary = false;
+            this.EnterToProgramm.Size = new System.Drawing.Size(58, 36);
+            this.EnterToProgramm.TabIndex = 3;
+            this.EnterToProgramm.Text = "Войти";
+            this.EnterToProgramm.UseVisualStyleBackColor = true;
+            this.EnterToProgramm.Click += new System.EventHandler(this.Enter_Click);
             // 
             // materialSingleLineTextField2
             // 
@@ -110,6 +111,7 @@
             this.materialSingleLineTextField2.SelectionStart = 0;
             this.materialSingleLineTextField2.Size = new System.Drawing.Size(165, 23);
             this.materialSingleLineTextField2.TabIndex = 4;
+            this.materialSingleLineTextField2.Text = "123123";
             this.materialSingleLineTextField2.UseSystemPasswordChar = false;
             // 
             // buttonRegister
@@ -152,7 +154,7 @@
             this.Controls.Add(this.materialCheckBox1);
             this.Controls.Add(this.buttonRegister);
             this.Controls.Add(this.materialSingleLineTextField2);
-            this.Controls.Add(this.Enter);
+            this.Controls.Add(this.EnterToProgramm);
             this.Controls.Add(this.materialSingleLineTextField1);
             this.Controls.Add(this.labelPassword);
             this.Controls.Add(this.labelLogin);
@@ -172,7 +174,7 @@
         private MaterialSkin.Controls.MaterialLabel labelLogin;
         private MaterialSkin.Controls.MaterialLabel labelPassword;
         private MaterialSkin.Controls.MaterialSingleLineTextField materialSingleLineTextField1;
-        private MaterialSkin.Controls.MaterialFlatButton Enter;
+        private MaterialSkin.Controls.MaterialFlatButton EnterToProgramm;
         private MaterialSkin.Controls.MaterialSingleLineTextField materialSingleLineTextField2;
         private MaterialSkin.Controls.MaterialFlatButton buttonRegister;
         private MaterialSkin.Controls.MaterialCheckBox materialCheckBox1;

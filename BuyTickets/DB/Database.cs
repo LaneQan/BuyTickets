@@ -68,29 +68,54 @@ namespace BuyTickets.DB
             connection.Close();
         }
         // Проверка или занят login/mail для регистрации
-        public bool canRegisterOrNot(string login, string mail)
+        public bool userOnBase(string login, string mail)
         {
             connection.Open();
-            bool canRegister = false;
+            bool onBase = false;
             SQLiteCommand cmd = new SQLiteCommand("SELECT COUNT(*) FROM Users WHERE Login = '" + login + "' OR Mail = '" + mail + "'", connection);
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                if (Convert.ToInt16(reader[0]) == 0)
-                    canRegister = true;
+                if (Convert.ToInt16(reader[0]) == 1)
+                    onBase = true;
             }
+            reader.Close();
             connection.Close();
-            return canRegister;
+            return onBase;
         }
         private string MD5crypt(string toCrypt)
         {
-            MD5 md5 = System.Security.Cryptography.MD5.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(toCrypt);
+            MD5 md5 = MD5.Create();
+            byte[] inputBytes = Encoding.ASCII.GetBytes(toCrypt);
             byte[] hash = md5.ComputeHash(inputBytes);
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < hash.Length; i++)
                 sb.Append(hash[i].ToString("X2"));
             return sb.ToString();
         }
+        public bool isAdmin(string login)
+        {
+            bool admin = false;
+            connection.Open();
+            SQLiteCommand cmd = new SQLiteCommand("SELECT IsAdmin FROM Users WHERE Login='" + login + "';", connection);
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                if (Convert.ToInt16(reader[0]) == 1)
+                    admin = true;
+                else admin = false;
+            }
+            reader.Close();
+            connection.Close();
+            return admin;
+        }
+        public void changePermissions(string login, int isAdmin)
+        {
+            connection.Open();
+            SQLiteCommand cmd = new SQLiteCommand("UPDATE 'Users' SET 'isAdmin'=" + isAdmin+" WHERE Login='"+login+"'", connection);
+            cmd.ExecuteNonQuery();
+            connection.Close();
+        }
+
     }
 }

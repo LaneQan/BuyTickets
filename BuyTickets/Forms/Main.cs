@@ -59,13 +59,10 @@ namespace BuyTickets
             if (isAdmin == 0)
             {
                 Personal form = new Personal();
-                form.Show();
-                this.Visible = false;
-            }
+                form.Show();            }
             else {
                 AdminPanel form = new AdminPanel();
                 form.Show();
-                this.Visible = false;
             }
         }
     }

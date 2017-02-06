@@ -42,7 +42,7 @@ namespace BuyTickets
                 if (err == null)
                 {
                     Database DB = new Database();
-                    if (DB.canRegisterOrNot(materialSingleLineTextField2.Text, materialSingleLineTextField1.Text))
+                    if (DB.userOnBase(materialSingleLineTextField2.Text, materialSingleLineTextField1.Text))
                     {
                         DB.Registration(materialSingleLineTextField1.Text,
                             materialSingleLineTextField2.Text,
