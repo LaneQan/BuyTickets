@@ -1,14 +1,15 @@
-﻿using System;
-using MaterialSkin.Controls;
+﻿using BuyTickets.DB;
 using MaterialSkin;
-using BuyTickets.DB;
+using MaterialSkin.Controls;
+using System;
 using System.Windows.Forms;
 
 namespace BuyTickets
 {
     public partial class Login : MaterialForm
     {
-        int isAdmin = 0;
+        private int isAdmin = 0;
+
         public Login()
         {
             InitializeComponent();
@@ -38,8 +39,8 @@ namespace BuyTickets
                 Main form = new Main(this.isAdmin);
                 form.Show();
                 this.Visible = false;
-            } 
-            else MessageBox.Show("Неправильный логин или пароль"); 
+            }
+            else MessageBox.Show("Неправильный логин или пароль");
             /*
             Main form = new Main();
             form.Show();

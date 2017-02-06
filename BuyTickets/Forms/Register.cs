@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-using MaterialSkin.Controls;
+﻿using BuyTickets.DB;
 using MaterialSkin;
-using BuyTickets.DB;
+using MaterialSkin.Controls;
+using System;
+using System.Windows.Forms;
 
 namespace BuyTickets
 {
@@ -18,7 +18,6 @@ namespace BuyTickets
 
         private void Register_Load(object sender, EventArgs e)
         {
-
         }
 
         private void materialFlatButton1_Click(object sender, EventArgs e)
@@ -60,7 +59,6 @@ namespace BuyTickets
             }
             else MessageBox.Show("Хорошая попытка, робот!");
         }
-
 
         private void Register_FormClosed(object sender, FormClosedEventArgs e)
         {

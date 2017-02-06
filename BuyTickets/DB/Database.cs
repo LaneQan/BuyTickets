@@ -1,16 +1,16 @@
-﻿using System.Data.SQLite;
-using System.Windows.Forms;
+﻿using System;
+using System.Data.SQLite;
 using System.Drawing;
-using System;
 using System.Security.Cryptography;
 using System.Text;
+using System.Windows.Forms;
 
 namespace BuyTickets.DB
 {
-    class Database
+    internal class Database
     {
-        const string databaseName = @"..\..\DB\BT.sqlite";
-        SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
+        private const string databaseName = @"..\..\DB\BT.sqlite";
+        private SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
 
         // Авторизация | Проверка пароля по логину
         public void Auth(string loginFromForm, string passFromForm, out int isAdmin, out bool success)
@@ -33,6 +33,7 @@ namespace BuyTickets.DB
             reader.Close();
             connection.Close();
         }
+
         // Загрузка сеансов в главном окне
         public void SessionsLoad(ImageList imageList, ListView listView)
         {
@@ -51,6 +52,7 @@ namespace BuyTickets.DB
                 listView.Items.Add(imageList.Images.Keys[i].ToString()).ImageIndex = i;
             }
         }
+
         // Регистрация
         public void Registration(string Mail, string Login, string Pass, string Name, string Surname, string Phone)
         {
@@ -67,6 +69,7 @@ namespace BuyTickets.DB
             cmd.ExecuteNonQuery();
             connection.Close();
         }
+
         // Проверка или занят login/mail для регистрации
         public bool userOnBase(string login, string mail)
         {
@@ -83,6 +86,7 @@ namespace BuyTickets.DB
             connection.Close();
             return onBase;
         }
+
         private string MD5crypt(string toCrypt)
         {
             MD5 md5 = MD5.Create();
