@@ -37,7 +37,7 @@ namespace BuyTickets
             DB.Auth(materialSingleLineTextField1.Text, materialSingleLineTextField2.Text, out isAdmin, out balance, out success);
             if (success)
             {
-                Main form = new Main(this.isAdmin, balance);
+                Main form = new Main(this.isAdmin, balance, materialSingleLineTextField1.Text);
                 form.Show();
                 this.Visible = false;
             }

@@ -1,8 +1,8 @@
-﻿using System;
-using MaterialSkin.Controls;
+﻿using BuyTickets.DB;
 using MaterialSkin;
+using MaterialSkin.Controls;
+using System;
 using System.Windows.Forms;
-using BuyTickets.DB;
 
 namespace BuyTickets.Forms
 {
@@ -18,12 +18,10 @@ namespace BuyTickets.Forms
 
         private void AddAdministator_Load(object sender, EventArgs e)
         {
-
         }
 
         private void AddAdministator_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
-
         }
 
         private void materialSingleLineTextField1_Click(object sender, EventArgs e)
@@ -48,8 +46,6 @@ namespace BuyTickets.Forms
                 }
             }
             else MessageBox.Show("Данный пользователь не зарегистрирован!");
-
         }
-
     }
 }

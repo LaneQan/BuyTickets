@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Security.Cryptography;
@@ -37,11 +38,19 @@ namespace BuyTickets.DB
         }
 
         // Загрузка сеансов в главном окне
-        public void SessionsLoad(ImageList imageList, ListView listView)
+        public void FilmsLoad(ImageList imageList, ListView listView, string date)
         {
+            List<int> FilmId = new List<int>();
             connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM Sessions;", connection);
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Film_Id FROM Sessions WHERE Date='" + date + "' GROUP BY Film_id;", connection);
             SQLiteDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                FilmId.Add(Convert.ToInt16(reader[0]));
+            }
+            reader.Close();
+            cmd = new SQLiteCommand("SELECT * FROM Films;", connection);
+            reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 string path = @"..\..\Images\" + reader["Id"].ToString() + ".jpg";
@@ -49,9 +58,12 @@ namespace BuyTickets.DB
             }
             reader.Close();
             connection.Close();
-            for (int i = 0; i < imageList.Images.Count; i++)
+            int k = 0;
+            foreach (int p in FilmId)
             {
-                listView.Items.Add(imageList.Images.Keys[i].ToString()).ImageIndex = i;
+                listView.Items.Add(imageList.Images.Keys[p].ToString()).ImageIndex = p;
+                listView.Items[k].Tag = p;
+                k++;
             }
         }
 
@@ -100,6 +112,7 @@ namespace BuyTickets.DB
                 sb.Append(hash[i].ToString("X2"));
             return sb.ToString();
         }
+
         public bool isAdmin(string login)
         {
             bool admin = false;
@@ -116,13 +129,87 @@ namespace BuyTickets.DB
             connection.Close();
             return admin;
         }
+
         public void changePermissions(string login, int isAdmin)
         {
             connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("UPDATE 'Users' SET 'isAdmin'=" + isAdmin+" WHERE Login='"+login+"'", connection);
+            SQLiteCommand cmd = new SQLiteCommand("UPDATE 'Users' SET 'isAdmin'=" + isAdmin + " WHERE Login='" + login + "'", connection);
             cmd.ExecuteNonQuery();
             connection.Close();
         }
 
+        public string returnDescript(int id)
+        {
+            string description = "";
+            connection.Open();
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Name,Description FROM Films WHERE Id=" + id + ";", connection);
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                description = Convert.ToString(reader[0]) + "\n\n" + Convert.ToString(reader[1]);
+            }
+            reader.Close();
+            connection.Close();
+            return description;
+        }
+
+        public List<string> CinemasLoad(int id, string date)
+        {
+            List<string> list = new List<string>();
+            connection.Open();
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Cinemas.Name FROM Cinemas, Sessions WHERE Sessions.Date='" + date + "' AND Sessions.Film_Id=" + id + " AND Cinemas.Id=Sessions.Cinemas_Id GROUP BY Cinemas_Id;", connection);
+            SQLiteDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    list.Add(Convert.ToString(reader["Name"]));
+                }
+            reader.Close();
+            connection.Close();
+            return list;
+        }
+        public List<string> TimeLoad(int id, string date, string cinema)
+        {
+            List<string> list = new List<string>();
+            connection.Open();
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Sessions.Time FROM Cinemas, Sessions WHERE Sessions.Date='" + date + "' AND Sessions.Film_Id=" + id + " AND Sessions.Cinemas_Id=(SELECT Id FROM Cinemas WHERE Name='"+cinema+"') GROUP BY Cinemas_Id", connection);
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+                {
+                    list.Add(Convert.ToString(reader["Time"]));
+                }
+            reader.Close();
+            connection.Close();
+            return list;
+        }
+        public string OccSeats(int id, string date, string cinema)
+        {
+            string places = "";
+            connection.Open();
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Sessions.Places FROM Cinemas, Sessions WHERE Sessions.Date='" + date + "' AND Sessions.Film_Id=" + id + " AND Sessions.Cinemas_Id=(SELECT Id FROM Cinemas WHERE Name='" + cinema + "') GROUP BY Cinemas_Id", connection);
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                places = Convert.ToString(reader["Places"]);
+            }
+            reader.Close();
+            connection.Close();
+            return places;
+        }
+
+        public int GetPrice(int id, string date, string cinema, string time)
+        {
+            int price = 0;
+            connection.Open();
+            SQLiteCommand cmd = new SQLiteCommand("SELECT Cost FROM Sessions WHERE Date='" + date + "' and Film_ID=" + id +
+                " and Cinemas_Id=(SELECT Id From Cinemas WHERE Cinemas.Name='" + cinema + "') and Time='" + time + "';", connection);
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                price = Convert.ToInt16(reader[0]);
+            }
+            reader.Close();
+            connection.Close();
+            return price;
+        }
     }
 }

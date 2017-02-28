@@ -233,7 +233,7 @@
             this.materialFlatButton1.AutoSize = true;
             this.materialFlatButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialFlatButton1.Depth = 0;
-            this.materialFlatButton1.Location = new System.Drawing.Point(90, 328);
+            this.materialFlatButton1.Location = new System.Drawing.Point(90, 316);
             this.materialFlatButton1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.materialFlatButton1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialFlatButton1.Name = "materialFlatButton1";
@@ -248,7 +248,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 390);
+            this.ClientSize = new System.Drawing.Size(350, 370);
             this.Controls.Add(this.materialFlatButton1);
             this.Controls.Add(this.materialCheckBox1);
             this.Controls.Add(this.materialSingleLineTextField6);
@@ -266,6 +266,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Register";
+            this.Sizable = false;
             this.Text = "Регистрация";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Register_FormClosed);
             this.Load += new System.EventHandler(this.Register_Load);

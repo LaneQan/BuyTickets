@@ -28,6 +28,5 @@ namespace BuyTickets.Forms
             AddAdministator form = new AddAdministator();
             form.Show();
         }
-
     }
 }

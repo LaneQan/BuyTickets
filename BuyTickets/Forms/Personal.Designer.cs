@@ -93,6 +93,7 @@
             this.materialFlatButton2.TabIndex = 7;
             this.materialFlatButton2.Text = "Изменить пароль";
             this.materialFlatButton2.UseVisualStyleBackColor = true;
+            this.materialFlatButton2.Click += new System.EventHandler(this.materialFlatButton2_Click);
             // 
             // materialLabel1
             // 

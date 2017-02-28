@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MaterialSkin;
+using MaterialSkin.Controls;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using MaterialSkin;
-using MaterialSkin.Controls;
 
 namespace BuyTickets.Forms
 {
@@ -14,10 +14,10 @@ namespace BuyTickets.Forms
             imgList.ImageSize = new Size(1, height);
             listView.SmallImageList = imgList;
         }
+
         public Personal()
         {
             InitializeComponent();
-            // Подключение MaterialSkin'a
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
@@ -29,6 +29,10 @@ namespace BuyTickets.Forms
         }
 
         private void Personal_FormClosed(object sender, FormClosedEventArgs e)
+        {
+        }
+
+        private void materialFlatButton2_Click(object sender, EventArgs e)
         {
         }
     }
