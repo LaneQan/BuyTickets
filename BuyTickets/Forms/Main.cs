@@ -19,9 +19,9 @@ namespace BuyTickets
     public partial class Main : MaterialForm
     {
         Database DB = new Database();
-        string login = "";
         int isAdmin = 0;
         int balance = 0;
+        string login;
         public Main(int isAdmin, int balance, string login)
         {
             InitializeComponent();
@@ -31,6 +31,7 @@ namespace BuyTickets
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             this.isAdmin = isAdmin;
             this.balance = balance;
+            this.login = login;
 
 
         }
@@ -72,7 +73,7 @@ namespace BuyTickets
 
         private void listView1_ItemActivate(object sender, EventArgs e)
         {
-            AboutSession form = new AboutSession(Convert.ToInt16(listView1.SelectedItems[0].Tag), dateTimePicker1.Value.ToString("dd.MM.yyyy"));
+            AboutSession form = new AboutSession(Convert.ToInt16(listView1.SelectedItems[0].Tag), dateTimePicker1.Value.ToString("dd.MM.yyyy"), balance, login);
             form.Show();
         }
 

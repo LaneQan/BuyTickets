@@ -49,7 +49,7 @@ namespace BuyTickets
                             materialSingleLineTextField4.Text,
                             materialSingleLineTextField5.Text,
                             materialSingleLineTextField6.Text);
-                        Main form = new Main(0, 0);
+                        Main form = new Main(0, 0, materialSingleLineTextField2.Text);
                         form.Show();
                         this.Visible = false;
                     }

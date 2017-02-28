@@ -77,7 +77,7 @@
             this.materialSingleLineTextField1.SelectionStart = 0;
             this.materialSingleLineTextField1.Size = new System.Drawing.Size(165, 23);
             this.materialSingleLineTextField1.TabIndex = 2;
-            this.materialSingleLineTextField1.Text = "admin";
+            this.materialSingleLineTextField1.Text = "user";
             this.materialSingleLineTextField1.UseSystemPasswordChar = false;
             // 
             // EnterToProgramm

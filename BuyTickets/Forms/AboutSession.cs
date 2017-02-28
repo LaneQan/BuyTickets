@@ -15,10 +15,12 @@ namespace BuyTickets.Forms
         private int NumberOfTickets = 0;
         private int price = 0;
         private int id;
+        private int balance;
+        private string login;
         private string date;
         private Database DB = new Database();
 
-        public AboutSession(int id, string date)
+        public AboutSession(int id, string date, int balance, string login)
         {
             InitializeComponent();
             var materialSkinManager = MaterialSkinManager.Instance;
@@ -26,6 +28,8 @@ namespace BuyTickets.Forms
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             this.id = id;
             this.date = date;
+            this.balance = balance;
+            this.login = login;
         }
 
         private void AboutSession_Load(object sender, EventArgs e)
@@ -55,6 +59,35 @@ namespace BuyTickets.Forms
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
+            if (NumberOfTickets != 0)
+            {
+                if (balance >= NumberOfTickets * price)
+                {
+                    var result = MessageBox.Show("Количество билетов: " + NumberOfTickets.ToString() + ".\nСумма к оплате: " +
+                        Convert.ToString(NumberOfTickets * price) + " руб.\nВы подтверждаете покупку?", "Подтверждение покупки", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        List<string> btnList = new List<string>();
+                        foreach (Control ctrl in panel1.Controls)
+                        {
+                            if (ctrl.BackColor == Color.Green)
+                                btnList.Add(ctrl.Name);
+                        }
+                        DB.UpdateSeatsBalanceAndHistory(login, NumberOfTickets, balance, NumberOfTickets * price, btnList, id, date, Convert.ToString(comboBox1.SelectedItem), Convert.ToString(comboBox2.SelectedItem));
+                        materialLabel3.Text = "Количество билетов: 0 шт.";
+                        materialLabel4.Text = "Общая цена: 0 руб.";
+                        foreach (Control ctrl in panel1.Controls)
+                        {
+                            if (ctrl.BackColor == Color.Green)
+                                ctrl.BackColor = Color.Red;
+                        }
+                        MessageBox.Show("Благодарим за покупку!");
+                    }
+                }
+                else MessageBox.Show("Недостаточно денег на балансе!");
+
+            }
+            else MessageBox.Show("Выберите места для покупки!");
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

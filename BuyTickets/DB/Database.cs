@@ -85,6 +85,7 @@ namespace BuyTickets.DB
             connection.Close();
         }
 
+
         // Проверка или занят login/mail для регистрации
         public bool userOnBase(string login, string mail)
         {
@@ -211,5 +212,33 @@ namespace BuyTickets.DB
             connection.Close();
             return price;
         }
+
+        public void UpdateSeatsBalanceAndHistory(string login, int numberOfTickets, int oldBalance, int ticketCosts, List<string> seatList, int id, string date, string cinema, string time)
+        {
+            string filmName = "";
+            connection.Open();
+            SQLiteCommand cmd = new SQLiteCommand("UPDATE Users SET Balance=" + Convert.ToString(oldBalance-numberOfTickets*ticketCosts)+" WHERE Login='"+login+"';", connection); // обновление баланса
+            cmd.ExecuteNonQuery();
+            cmd = new SQLiteCommand("SELECT Name FROM Films WHERE ID =" + id+" ;", connection);
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                filmName = Convert.ToString(reader[0]);
+            }
+            reader.Close();
+            string seats = string.Join(";", seatList.ToArray()) + ";";
+            cmd = new SQLiteCommand("UPDATE Sessions SET Places = Places || '" + seats + "' WHERE Date='" + date + "' and Film_ID=" + id  +
+                " and Cinemas_Id=(SELECT Id From Cinemas WHERE Cinemas.Name='" + cinema + "') and Time='" + time + "';", connection); // обновление мест
+            cmd.ExecuteNonQuery();
+            cmd = new SQLiteCommand(("INSERT INTO Balance_History (User_login, Action, Change, Date)"
+            + "VALUES (@User_login, @Action, @Change, @Date);"), connection);
+            cmd.Parameters.AddWithValue("@User_login", login);
+            cmd.Parameters.AddWithValue("@Action", "Покупка билетов в количестве: " + numberOfTickets + " шт. на сеанс '" + date + " " + filmName + " " + time+"'");
+            cmd.Parameters.AddWithValue("@Change", "-"+numberOfTickets*ticketCosts+" руб.");
+            cmd.Parameters.AddWithValue("@Date", Convert.ToString(DateTime.Today.ToString("dd.MM.yyyy"))); 
+            cmd.ExecuteNonQuery();
+            connection.Close();
+        }
+
     }
 }
