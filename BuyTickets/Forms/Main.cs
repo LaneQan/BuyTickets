@@ -19,9 +19,9 @@ namespace BuyTickets
     public partial class Main : MaterialForm
     {
         Database DB = new Database();
-        int isAdmin = 0;
-        int balance = 0;
-        string login;
+        private int isAdmin = 0;
+        public int balance = 0;
+        private string login;
         public Main(int isAdmin, int balance, string login)
         {
             InitializeComponent();
@@ -59,7 +59,7 @@ namespace BuyTickets
         {
             if (isAdmin == 0)
             {
-                Personal form = new Personal();
+                Personal form = new Personal(login);
                 form.Show();            }
             else {
                 AdminPanel form = new AdminPanel();

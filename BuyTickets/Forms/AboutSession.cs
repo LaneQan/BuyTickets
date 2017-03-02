@@ -73,13 +73,20 @@ namespace BuyTickets.Forms
                             if (ctrl.BackColor == Color.Green)
                                 btnList.Add(ctrl.Name);
                         }
-                        DB.UpdateSeatsBalanceAndHistory(login, NumberOfTickets, balance, NumberOfTickets * price, btnList, id, date, Convert.ToString(comboBox1.SelectedItem), Convert.ToString(comboBox2.SelectedItem));
+                        DB.UpdateSeatsBalanceAndHistory(login, NumberOfTickets, balance, price, btnList, id, date, Convert.ToString(comboBox1.SelectedItem), Convert.ToString(comboBox2.SelectedItem));
                         materialLabel3.Text = "Количество билетов: 0 шт.";
                         materialLabel4.Text = "Общая цена: 0 руб.";
                         foreach (Control ctrl in panel1.Controls)
                         {
                             if (ctrl.BackColor == Color.Green)
                                 ctrl.BackColor = Color.Red;
+                        }
+                        Main fc = (Main)Application.OpenForms["Main"];
+                        balance -= NumberOfTickets * price;
+                        if (fc != null)
+                        {
+                            fc.materialLabel2.Text = "Баланс: " + Convert.ToString(balance) + " руб";
+                            fc.balance = balance;
                         }
                         MessageBox.Show("Благодарим за покупку!");
                     }

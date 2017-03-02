@@ -239,6 +239,33 @@ namespace BuyTickets.DB
             cmd.ExecuteNonQuery();
             connection.Close();
         }
+        public string[,] getBalanceHistory(string login)
+        {
+            connection.Open();
+            SQLiteCommand cmd = new SQLiteCommand("SELECT COUNT(*)FROM Balance_History WHERE User_Login='" + login + "';", connection);
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            int count=1;
+            while (reader.Read())
+            {
+                count = Convert.ToInt16(reader[0]);
+            }
+            reader.Close();
+            string[,] toList = new string[count,4];
+            cmd = new SQLiteCommand("SELECT Date, Action, Change, Key FROM Balance_History WHERE User_Login='" + login + "';", connection);
+            reader = cmd.ExecuteReader();
+            int i = 0;
+                while (reader.Read())
+            {
+                    toList[i, 0] = Convert.ToString(reader["Date"]);
+                    toList[i, 1] = Convert.ToString(reader["Action"]);
+                    toList[i, 2] = Convert.ToString(reader["Change"]);
+                    toList[i, 3] = Convert.ToString(reader["Key"]);
+                i++;
+            }
+            reader.Close();
+            connection.Close();
+            return toList;
+        }
 
     }
 }
