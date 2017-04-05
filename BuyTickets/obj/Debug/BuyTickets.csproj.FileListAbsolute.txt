@@ -70,3 +70,4 @@ C:\Users\LaneQan\Desktop\Project\BuyTickets\BuyTickets\BuyTickets\bin\Debug\Enti
 C:\Users\LaneQan\Desktop\Project\BuyTickets\BuyTickets\BuyTickets\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\LaneQan\Desktop\Project\BuyTickets\BuyTickets\BuyTickets\bin\Debug\System.Data.SQLite.xml
 C:\Users\LaneQan\Desktop\Project\BuyTickets\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Forms.AboutSession.resources
+C:\Users\LaneQan\Desktop\Project\BuyTickets\BuyTickets\BuyTickets\bin\Debug\System.Data.SQLite.dll.config

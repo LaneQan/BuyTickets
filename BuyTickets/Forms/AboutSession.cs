@@ -79,7 +79,10 @@ namespace BuyTickets.Forms
                         foreach (Control ctrl in panel1.Controls)
                         {
                             if (ctrl.BackColor == Color.Green)
+                            {
                                 ctrl.BackColor = Color.Red;
+                                ctrl.Enabled = false;
+                            }
                         }
                         Main fc = (Main)Application.OpenForms["Main"];
                         balance -= NumberOfTickets * price;

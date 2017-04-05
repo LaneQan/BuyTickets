@@ -63,26 +63,6 @@ namespace BuyTickets.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _097b7152a694bfd118c3aa6f65a39cad {
-            get {
-                object obj = ResourceManager.GetObject("097b7152a694bfd118c3aa6f65a39cad", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap p4lalyw8 {
-            get {
-                object obj = ResourceManager.GetObject("p4lalyw8", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Seats {
             get {
                 object obj = ResourceManager.GetObject("Seats", resourceCulture);

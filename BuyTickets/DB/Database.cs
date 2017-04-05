@@ -86,7 +86,7 @@ namespace BuyTickets.DB
         }
 
 
-        // Проверка или занят login/mail для регистрации
+        // Проверка: занят ли login/mail для регистрации
         public bool userOnBase(string login, string mail)
         {
             connection.Open();
@@ -217,7 +217,7 @@ namespace BuyTickets.DB
         {
             string filmName = "";
             connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("UPDATE Users SET Balance=" + Convert.ToString(oldBalance-numberOfTickets*ticketCosts)+" WHERE Login='"+login+"';", connection); // обновление баланса
+            SQLiteCommand cmd = new SQLiteCommand("UPDATE Users SET Balance=" + Convert.ToString(oldBalance-numberOfTickets*ticketCosts)+" WHERE Login='"+login+"';", connection); 
             cmd.ExecuteNonQuery();
             cmd = new SQLiteCommand("SELECT Name FROM Films WHERE ID =" + id+" ;", connection);
             SQLiteDataReader reader = cmd.ExecuteReader();
@@ -228,7 +228,7 @@ namespace BuyTickets.DB
             reader.Close();
             string seats = string.Join(";", seatList.ToArray()) + ";";
             cmd = new SQLiteCommand("UPDATE Sessions SET Places = Places || '" + seats + "' WHERE Date='" + date + "' and Film_ID=" + id  +
-                " and Cinemas_Id=(SELECT Id From Cinemas WHERE Cinemas.Name='" + cinema + "') and Time='" + time + "';", connection); // обновление мест
+                " and Cinemas_Id=(SELECT Id From Cinemas WHERE Cinemas.Name='" + cinema + "') and Time='" + time + "';", connection); 
             cmd.ExecuteNonQuery();
             cmd = new SQLiteCommand(("INSERT INTO Balance_History (User_login, Action, Change, Date)"
             + "VALUES (@User_login, @Action, @Change, @Date);"), connection);

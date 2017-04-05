@@ -42,10 +42,6 @@ namespace BuyTickets
                 this.Visible = false;
             }
             else MessageBox.Show("Неправильный логин или пароль");
-            /*
-            Main form = new Main();
-            form.Show();
-            this.Visible = false; */
         }
     }
 }
