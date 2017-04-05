@@ -29,7 +29,6 @@ namespace BuyTickets.Forms
 
         private void Personal_Load(object sender, EventArgs e)
         {
-            materialLabel1.Text = "Добро пожаловать, " + login + "!";
             Font defaultFont = new Font("Microsoft Sans Serif", 12);
             Database DB = new Database();
             SetHeight(listView1, 25);

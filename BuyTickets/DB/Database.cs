@@ -230,12 +230,13 @@ namespace BuyTickets.DB
             cmd = new SQLiteCommand("UPDATE Sessions SET Places = Places || '" + seats + "' WHERE Date='" + date + "' and Film_ID=" + id  +
                 " and Cinemas_Id=(SELECT Id From Cinemas WHERE Cinemas.Name='" + cinema + "') and Time='" + time + "';", connection); 
             cmd.ExecuteNonQuery();
-            cmd = new SQLiteCommand(("INSERT INTO Balance_History (User_login, Action, Change, Date)"
-            + "VALUES (@User_login, @Action, @Change, @Date);"), connection);
+            cmd = new SQLiteCommand(("INSERT INTO Balance_History (User_login, Action, Change, Date, Key)"
+            + "VALUES (@User_login, @Action, @Change, @Date, @Key);"), connection);
             cmd.Parameters.AddWithValue("@User_login", login);
             cmd.Parameters.AddWithValue("@Action", "Покупка билетов в количестве: " + numberOfTickets + " шт. на сеанс '" + date + " " + filmName + " " + time+"'");
             cmd.Parameters.AddWithValue("@Change", "-"+numberOfTickets*ticketCosts+" руб.");
-            cmd.Parameters.AddWithValue("@Date", Convert.ToString(DateTime.Today.ToString("dd.MM.yyyy"))); 
+            cmd.Parameters.AddWithValue("@Date", Convert.ToString(DateTime.Today.ToString("dd.MM.yyyy")));
+            cmd.Parameters.AddWithValue("@Key", 0);
             cmd.ExecuteNonQuery();
             connection.Close();
         }

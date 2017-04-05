@@ -66,9 +66,9 @@
             this.s5_2 = new System.Windows.Forms.Button();
             this.s5_1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.s1_1 = new System.Windows.Forms.Button();
-            this.materialLabel5 = new MaterialSkin.Controls.MaterialLabel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.materialLabel5 = new MaterialSkin.Controls.MaterialLabel();
+            this.s1_1 = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
@@ -102,12 +102,12 @@
             // 
             this.materialLabel1.AutoSize = true;
             this.materialLabel1.Depth = 0;
-            this.materialLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.materialLabel1.Location = new System.Drawing.Point(27, 395);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(138, 18);
+            this.materialLabel1.Size = new System.Drawing.Size(140, 19);
             this.materialLabel1.TabIndex = 3;
             this.materialLabel1.Text = "Выбор кинотеатра";
             // 
@@ -115,12 +115,12 @@
             // 
             this.materialLabel2.AutoSize = true;
             this.materialLabel2.Depth = 0;
-            this.materialLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.materialLabel2.Location = new System.Drawing.Point(27, 464);
             this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel2.Name = "materialLabel2";
-            this.materialLabel2.Size = new System.Drawing.Size(118, 18);
+            this.materialLabel2.Size = new System.Drawing.Size(121, 19);
             this.materialLabel2.TabIndex = 5;
             this.materialLabel2.Text = "Выбор времени";
             // 
@@ -264,12 +264,12 @@
             // 
             this.materialLabel3.AutoSize = true;
             this.materialLabel3.Depth = 0;
-            this.materialLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.materialLabel3.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.materialLabel3.Location = new System.Drawing.Point(28, 544);
             this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel3.Name = "materialLabel3";
-            this.materialLabel3.Size = new System.Drawing.Size(196, 18);
+            this.materialLabel3.Size = new System.Drawing.Size(201, 19);
             this.materialLabel3.TabIndex = 20;
             this.materialLabel3.Text = "Количество билетов: 0 шт.";
             // 
@@ -277,12 +277,12 @@
             // 
             this.materialLabel4.AutoSize = true;
             this.materialLabel4.Depth = 0;
-            this.materialLabel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.materialLabel4.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.materialLabel4.Location = new System.Drawing.Point(27, 578);
             this.materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel4.Name = "materialLabel4";
-            this.materialLabel4.Size = new System.Drawing.Size(140, 18);
+            this.materialLabel4.Size = new System.Drawing.Size(140, 19);
             this.materialLabel4.TabIndex = 21;
             this.materialLabel4.Text = "Общая цена: 0 руб.";
             // 
@@ -508,6 +508,28 @@
             this.panel1.TabIndex = 41;
             this.panel1.Visible = false;
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::BuyTickets.Properties.Resources.seats2;
+            this.pictureBox3.Location = new System.Drawing.Point(15, 227);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(503, 36);
+            this.pictureBox3.TabIndex = 43;
+            this.pictureBox3.TabStop = false;
+            // 
+            // materialLabel5
+            // 
+            this.materialLabel5.AutoSize = true;
+            this.materialLabel5.Depth = 0;
+            this.materialLabel5.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel5.Location = new System.Drawing.Point(197, -3);
+            this.materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel5.Name = "materialLabel5";
+            this.materialLabel5.Size = new System.Drawing.Size(124, 19);
+            this.materialLabel5.TabIndex = 42;
+            this.materialLabel5.Text = "Выберите места";
+            // 
             // s1_1
             // 
             this.s1_1.BackColor = System.Drawing.Color.White;
@@ -517,28 +539,6 @@
             this.s1_1.TabIndex = 41;
             this.s1_1.UseVisualStyleBackColor = false;
             this.s1_1.Click += new System.EventHandler(this.onClick);
-            // 
-            // materialLabel5
-            // 
-            this.materialLabel5.AutoSize = true;
-            this.materialLabel5.Depth = 0;
-            this.materialLabel5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.materialLabel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel5.Location = new System.Drawing.Point(197, -3);
-            this.materialLabel5.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel5.Name = "materialLabel5";
-            this.materialLabel5.Size = new System.Drawing.Size(123, 18);
-            this.materialLabel5.TabIndex = 42;
-            this.materialLabel5.Text = "Выберите места";
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::BuyTickets.Properties.Resources.seats2;
-            this.pictureBox3.Location = new System.Drawing.Point(15, 227);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(503, 36);
-            this.pictureBox3.TabIndex = 43;
-            this.pictureBox3.TabStop = false;
             // 
             // pictureBox2
             // 
@@ -574,7 +574,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.listBox1);
             this.Name = "AboutSession";
-            this.Text = "AboutSession";
+            this.Text = "Выбор сеанса";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.AboutSession_Load);
             this.panel1.ResumeLayout(false);
