@@ -20,7 +20,7 @@
 
 ![](http://rgho.st/7MB5yrGYY/image.png)
 
-![](http://rgho.st/82qnWyngY/image.png)
+![](http://rgho.st/7CQD8x766/image.png)
 
 ***
 В будущем будет добавлено:
