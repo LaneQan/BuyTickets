@@ -14,13 +14,17 @@
 
 ***
 ### Скриншоты:
-![](http://rgho.st/8kJJTrWjG/image.png)
+![](http://imgur.com/9Hl6THv)
 
-![](http://rgho.st/6FY9Mcv2D/image.png)
+![](http://imgur.com/9Hl6THv)
 
-![](http://rgho.st/7MB5yrGYY/image.png)
+![](http://imgur.com/4G62rAz)
 
-![](http://rgho.st/7CQD8x766/image.png)
+![](http://imgur.com/c8K4w23)
+
+![](http://imgur.com/lNmpyj3)
+
+![](http://imgur.com/nfh8Kg2)
 
 
 ***
