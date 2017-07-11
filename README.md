@@ -14,17 +14,17 @@
 
 ***
 ### Скриншоты:
-![](http://imgur.com/9Hl6THv)
+![](https://i.imgur.com/9Hl6THv.png)
 
-![](http://imgur.com/9Hl6THv)
+![](https://i.imgur.com/8PiEU89.png)
 
-![](http://imgur.com/4G62rAz)
+![](https://i.imgur.com/4G62rAz.png)
 
-![](http://imgur.com/c8K4w23)
+![](https://i.imgur.com/c8K4w23.png)
 
-![](http://imgur.com/lNmpyj3)
+![](https://i.imgur.com/lNmpyj3.png)
 
-![](http://imgur.com/nfh8Kg2)
+![](https://i.imgur.com/nfh8Kg2.png)
 
 
 ***
