@@ -29,7 +29,7 @@ namespace BuyTickets.Forms
 
         private void Personal_Load(object sender, EventArgs e)
         {
-            Font defaultFont = new Font("Microsoft Sans Serif", 12);
+           /* Font defaultFont = new Font("Microsoft Sans Serif", 12);
             Database DB = new Database();
             SetHeight(listView1, 25);
             string[,] toList = DB.getBalanceHistory(login);
@@ -42,7 +42,7 @@ namespace BuyTickets.Forms
                     li.ForeColor = Color.Red;
                 else li.ForeColor = Color.Green;
                 listView1.Items.Add(li);
-            }
+            }*/
 
 
         }
@@ -53,6 +53,11 @@ namespace BuyTickets.Forms
 
         private void materialFlatButton2_Click(object sender, EventArgs e)
         {
+        }
+
+        private void materialRaisedButton1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

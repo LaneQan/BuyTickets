@@ -31,7 +31,7 @@ namespace BuyTickets.Forms
 
         private void materialFlatButton1_Click(object sender, EventArgs e)
         {
-            Database DB = new Database();
+            /*Database DB = new Database();
             if (DB.userOnBase(materialSingleLineTextField1.Text, "xx"))
             {
                 if (DB.isAdmin(materialSingleLineTextField1.Text))
@@ -45,7 +45,7 @@ namespace BuyTickets.Forms
                     MessageBox.Show("Права изменены с 'Пользователь' на 'Администратор'!");
                 }
             }
-            else MessageBox.Show("Данный пользователь не зарегистрирован!");
+            else MessageBox.Show("Данный пользователь не зарегистрирован!");*/
         }
     }
 }

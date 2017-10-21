@@ -54,6 +54,7 @@
             this.materialRaisedButton1.TabIndex = 11;
             this.materialRaisedButton1.Text = "Изменить пароль";
             this.materialRaisedButton1.UseVisualStyleBackColor = true;
+            this.materialRaisedButton1.Click += new System.EventHandler(this.materialRaisedButton1_Click);
             // 
             // materialRaisedButton2
             // 

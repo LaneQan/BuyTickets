@@ -12,41 +12,37 @@ using MaterialSkin.Controls;
 using System.Data.SQLite;
 using BuyTickets.Forms;
 using BuyTickets.DB;
+using BuyTickets.Models;
 
 namespace BuyTickets
 {
 
     public partial class Main : MaterialForm
     {
-        Database DB = new Database();
-        private int isAdmin = 0;
-        public int balance = 0;
-        private string login;
-        public Main(int isAdmin, int balance, string login)
+        private User _user;
+        public Main(User user)
         {
             InitializeComponent();
             // Подключение MaterialSkin'a
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            this.isAdmin = isAdmin;
-            this.balance = balance;
-            this.login = login;
-
+            _user = user;
 
         }
 
 
         private void Main_Load(object sender, EventArgs e)
-        {
-            DB.FilmsLoad(imageList1, listView1, DateTime.Today.ToString("dd.MM.yyyy"));
-            if (isAdmin==1)
+        { 
+            if (_user.IsAdmin)
             {
                 materialRaisedButton1.Text = "Кабинет администратора";
                 materialLabel2.Text = "";
             }
             else
-            materialLabel2.Text = "Баланс: " + Convert.ToString(balance) + " руб";
+            materialLabel2.Text = "Баланс: " + Convert.ToString(_user.Balance) + " руб";
+
+            //DB.FilmsLoad(imageList1, listView1, DateTime.Today.ToString("dd.MM.yyyy"));
 
         }
 
@@ -57,9 +53,9 @@ namespace BuyTickets
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
-            if (isAdmin == 0)
+            if (!_user.IsAdmin)
             {
-                Personal form = new Personal(login);
+                Personal form = new Personal(_user.Login);
                 form.Show();            }
             else {
                 AdminPanel form = new AdminPanel();
@@ -73,15 +69,15 @@ namespace BuyTickets
 
         private void listView1_ItemActivate(object sender, EventArgs e)
         {
-            AboutSession form = new AboutSession(Convert.ToInt16(listView1.SelectedItems[0].Tag), dateTimePicker1.Value.ToString("dd.MM.yyyy"), balance, login);
+            AboutSession form = new AboutSession(Convert.ToInt16(listView1.SelectedItems[0].Tag), dateTimePicker1.Value.ToString("dd.MM.yyyy"));
             form.Show();
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            imageList1.Images.Clear();
+           /* imageList1.Images.Clear();
             listView1.Items.Clear();
-            DB.FilmsLoad(imageList1, listView1, dateTimePicker1.Value.ToString("dd.MM.yyyy"));
+            DB.FilmsLoad(imageList1, listView1, dateTimePicker1.Value.ToString("dd.MM.yyyy"));*/
         }
     }
 }

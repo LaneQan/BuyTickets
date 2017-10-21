@@ -28,5 +28,23 @@ namespace BuyTickets.Forms
             AddAdministator form = new AddAdministator();
             form.Show();
         }
+
+        private void materialFlatButton1_Click(object sender, EventArgs e)
+        {
+            AddSession form = new AddSession();
+            form.Show();
+        }
+
+        private void materialFlatButton5_Click(object sender, EventArgs e)
+        {
+            AddCinema form = new AddCinema();
+            form.Show();
+        }
+
+        private void materialFlatButton3_Click(object sender, EventArgs e)
+        {
+            AddFilm form = new AddFilm();
+            form.Show();
+        }
     }
 }

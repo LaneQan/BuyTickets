@@ -77,7 +77,7 @@
             this.materialSingleLineTextField1.SelectionStart = 0;
             this.materialSingleLineTextField1.Size = new System.Drawing.Size(165, 23);
             this.materialSingleLineTextField1.TabIndex = 2;
-            this.materialSingleLineTextField1.Text = "user";
+            this.materialSingleLineTextField1.Text = "adminadmin";
             this.materialSingleLineTextField1.UseSystemPasswordChar = false;
             // 
             // EnterToProgramm
@@ -111,7 +111,7 @@
             this.materialSingleLineTextField2.SelectionStart = 0;
             this.materialSingleLineTextField2.Size = new System.Drawing.Size(165, 23);
             this.materialSingleLineTextField2.TabIndex = 4;
-            this.materialSingleLineTextField2.Text = "123123";
+            this.materialSingleLineTextField2.Text = "adminadmin";
             this.materialSingleLineTextField2.UseSystemPasswordChar = false;
             // 
             // buttonRegister

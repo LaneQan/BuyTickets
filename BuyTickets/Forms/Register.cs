@@ -2,7 +2,9 @@
 using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using BuyTickets.Models;
 
 namespace BuyTickets
 {
@@ -40,20 +42,26 @@ namespace BuyTickets
             {
                 if (err == null)
                 {
-                    Database DB = new Database();
-                    if (!DB.userOnBase(materialSingleLineTextField2.Text, materialSingleLineTextField1.Text))
+                    if (!Database.UserOnBase(materialSingleLineTextField2.Text,
+                        materialSingleLineTextField1.Text))
                     {
-                        DB.Registration(materialSingleLineTextField1.Text,
-                            materialSingleLineTextField2.Text,
-                            materialSingleLineTextField3.Text,
-                            materialSingleLineTextField4.Text,
-                            materialSingleLineTextField5.Text,
-                            materialSingleLineTextField6.Text);
-                        Main form = new Main(0, 0, materialSingleLineTextField2.Text);
+                        User user = new User
+                        {
+                            Login = materialSingleLineTextField2.Text,
+                            Mail = materialSingleLineTextField1.Text,
+                            Password = materialSingleLineTextField3.Text,
+                            Name = materialSingleLineTextField4.Text,
+                            Surname = materialSingleLineTextField5.Text,
+                            Phone = materialSingleLineTextField6.Text,
+                            Balance = 0,
+                            IsAdmin = false
+                        };
+                        Database.Registration(user);
+                        Main form = new Main(user);
                         form.Show();
                         this.Visible = false;
                     }
-                    else MessageBox.Show("Логин или E-mail уже зарегистрированы.");
+                    else MessageBox.Show("Данный логин или e-mail занят.");
                 }
                 else MessageBox.Show(err);
             }

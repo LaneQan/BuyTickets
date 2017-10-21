@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Windows.Forms;
+using BuyTickets.Models;
 
 namespace BuyTickets
 {
@@ -13,6 +15,7 @@ namespace BuyTickets
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Database.SetInitializer<BuyTicketsContext>(new DropCreateDatabaseIfModelChanges<BuyTicketsContext>());
             Application.Run(new Login());
         }
     }

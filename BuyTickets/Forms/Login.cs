@@ -3,13 +3,12 @@ using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
 using System.Windows.Forms;
+using BuyTickets.Models;
 
 namespace BuyTickets
 {
     public partial class Login : MaterialForm
     {
-        private int isAdmin = 0;
-        private int balance = 0;
 
         public Login()
         {
@@ -32,12 +31,10 @@ namespace BuyTickets
 
         private void Enter_Click(object sender, EventArgs e)
         {
-            bool success;
-            Database DB = new Database();
-            DB.Auth(materialSingleLineTextField1.Text, materialSingleLineTextField2.Text, out isAdmin, out balance, out success);
-            if (success)
+            var user = Database.Auth(materialSingleLineTextField1.Text, materialSingleLineTextField2.Text);
+            if (user!=null)
             {
-                Main form = new Main(this.isAdmin, balance, materialSingleLineTextField1.Text);
+                Main form = new Main(user);
                 form.Show();
                 this.Visible = false;
             }

@@ -1,44 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SQLite;
 using System.Drawing;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using BuyTickets.Models;
 
 namespace BuyTickets.DB
 {
-    internal class Database
+    public static class Database
     {
-        private const string databaseName = @"..\..\DB\BT.db";
-        private SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
+        static BuyTicketsContext dbc = new BuyTicketsContext();
 
-        // Авторизация | Проверка пароля по логину
-        public void Auth(string loginFromForm, string passFromForm, out int isAdmin, out int balance, out bool success)
+        public static User Auth(string login, string password)
         {
-            success = false;
-            isAdmin = 0;
-            balance = 0;
-            connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Password,IsAdmin,Balance FROM Users WHERE Login='" + loginFromForm + "';", connection);
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                if (reader["Password"].ToString() == MD5crypt(passFromForm))
-                {
-                    isAdmin = Convert.ToInt16(reader["isAdmin"]);
-                    balance = Convert.ToInt16(reader["Balance"]);
-                    success = true;
-                }
-                else
-                    success = false;
-            }
-            reader.Close();
-            connection.Close();
+            password = Md5Crypt(password);
+            var user = dbc.Users.FirstOrDefault(x => x.Login == login && x.Password == password);
+            return user;
         }
 
-        // Загрузка сеансов в главном окне
-        public void FilmsLoad(ImageList imageList, ListView listView, string date)
+        /*public void FilmsLoad(ImageList imageList, ListView listView, string date)
         {
             List<int> FilmId = new List<int>();
             connection.Open();
@@ -65,45 +50,24 @@ namespace BuyTickets.DB
                 listView.Items[k].Tag = p;
                 k++;
             }
-        }
+        }*/
 
-        // Регистрация
-        public void Registration(string Mail, string Login, string Pass, string Name, string Surname, string Phone)
+        public static async void Registration(User user)
         {
-            connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("INSERT INTO 'Users' (Login, Password, Name, Surname, Phone, Mail, isAdmin, Balance)"
-            + "VALUES (@LoginParam, @PasswordParam, @NameParam, @SurnameParam, @PhoneParam, @MailParam, @isAdmin, @Balance)", connection);
-            cmd.Parameters.AddWithValue("@LoginParam", Login);
-            cmd.Parameters.AddWithValue("@PasswordParam", MD5crypt(Pass));
-            cmd.Parameters.AddWithValue("@NameParam", Name);
-            cmd.Parameters.AddWithValue("@SurnameParam", Surname);
-            cmd.Parameters.AddWithValue("@PhoneParam", Phone);
-            cmd.Parameters.AddWithValue("@MailParam", Mail);
-            cmd.Parameters.AddWithValue("@isAdmin", false);
-            cmd.Parameters.AddWithValue("@Balance", 0);
-            cmd.ExecuteNonQuery();
-            connection.Close();
+            user.Password = Md5Crypt(user.Password);
+            dbc.Users.Add(user);
+            await dbc.SaveChangesAsync();
         }
 
-
-        // Проверка: занят ли login/mail для регистрации
-        public bool userOnBase(string login, string mail)
+        public static bool UserOnBase(string login, string mail)
         {
-            connection.Open();
-            bool onBase = false;
-            SQLiteCommand cmd = new SQLiteCommand("SELECT COUNT(*) FROM Users WHERE Login = '" + login + "' OR Mail = '" + mail + "'", connection);
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                if (Convert.ToInt16(reader[0]) == 1)
-                    onBase = true;
-            }
-            reader.Close();
-            connection.Close();
-            return onBase;
+            var user = dbc.Users.FirstOrDefault(x => x.Login == login || x.Mail == mail);
+            if (user != null)
+                return true;
+            else return false;
         }
 
-        private string MD5crypt(string toCrypt)
+        private static string Md5Crypt(string toCrypt)
         {
             MD5 md5 = MD5.Create();
             byte[] inputBytes = Encoding.ASCII.GetBytes(toCrypt);
@@ -114,159 +78,138 @@ namespace BuyTickets.DB
             return sb.ToString();
         }
 
-        public bool isAdmin(string login)
+        public static async Task<bool> IsAdmin(string login)
         {
-            bool admin = false;
-            connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("SELECT IsAdmin FROM Users WHERE Login='" + login + "';", connection);
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                if (Convert.ToInt16(reader[0]) == 1)
-                    admin = true;
-                else admin = false;
-            }
-            reader.Close();
-            connection.Close();
-            return admin;
+            var user = await dbc.Users.FirstOrDefaultAsync(x => x.Login == login);
+            return user.IsAdmin;
         }
 
-        public void changePermissions(string login, int isAdmin)
+        public static async void ChangePermissions(string login, bool isAdmin)
         {
-            connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("UPDATE 'Users' SET 'isAdmin'=" + isAdmin + " WHERE Login='" + login + "'", connection);
-            cmd.ExecuteNonQuery();
-            connection.Close();
+            var user = await dbc.Users.FirstOrDefaultAsync(x => x.Login == login);
+            user.IsAdmin = isAdmin;
+            dbc.Entry(user).State = EntityState.Modified;
+            await dbc.SaveChangesAsync();
         }
 
-        public string returnDescript(int id)
+        public static async Task<string> ReturnDescription(int id)
         {
-            string description = "";
-            connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Name,Description FROM Films WHERE Id=" + id + ";", connection);
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                description = Convert.ToString(reader[0]) + "\n\n" + Convert.ToString(reader[1]);
-            }
-            reader.Close();
-            connection.Close();
-            return description;
+            var film = await dbc.Films.FirstOrDefaultAsync(x => x.Id == id);
+            return film.Name + "\n\n" + film.Description;
         }
 
-        public List<string> CinemasLoad(int id, string date)
+        /*public static async Task<List<string>> CinemasLoad(int FilmId, string date) // переделать LINQ запрос в сложный
         {
-            List<string> list = new List<string>();
-            connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Cinemas.Name FROM Cinemas, Sessions WHERE Sessions.Date='" + date + "' AND Sessions.Film_Id=" + id + " AND Cinemas.Id=Sessions.Cinemas_Id GROUP BY Cinemas_Id;", connection);
-            SQLiteDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    list.Add(Convert.ToString(reader["Name"]));
-                }
-            reader.Close();
-            connection.Close();
+            var cinemasIds = await dbc.Sessions.Where(x => x.FilmId == FilmId && x.Date == date).Select(x => x.CinemaId).ToListAsync();
             return list;
-        }
-        public List<string> TimeLoad(int id, string date, string cinema)
-        {
-            List<string> list = new List<string>();
-            connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Sessions.Time FROM Cinemas, Sessions WHERE Sessions.Date='" + date + "' AND Sessions.Film_Id=" + id + " AND Sessions.Cinemas_Id=(SELECT Id FROM Cinemas WHERE Name='"+cinema+"') GROUP BY Cinemas_Id", connection);
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-                {
-                    list.Add(Convert.ToString(reader["Time"]));
-                }
-            reader.Close();
-            connection.Close();
-            return list;
-        }
-        public string OccSeats(int id, string date, string cinema)
-        {
-            string places = "";
-            connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Sessions.Places FROM Cinemas, Sessions WHERE Sessions.Date='" + date + "' AND Sessions.Film_Id=" + id + " AND Sessions.Cinemas_Id=(SELECT Id FROM Cinemas WHERE Name='" + cinema + "') GROUP BY Cinemas_Id", connection);
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                places = Convert.ToString(reader["Places"]);
-            }
-            reader.Close();
-            connection.Close();
-            return places;
-        }
+        }*/
 
-        public int GetPrice(int id, string date, string cinema, string time)
-        {
-            int price = 0;
-            connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Cost FROM Sessions WHERE Date='" + date + "' and Film_ID=" + id +
-                " and Cinemas_Id=(SELECT Id From Cinemas WHERE Cinemas.Name='" + cinema + "') and Time='" + time + "';", connection);
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                price = Convert.ToInt16(reader[0]);
-            }
-            reader.Close();
-            connection.Close();
-            return price;
-        }
+        /* public List<string> TimeLoad(int id, string date, string cinema)
+         {
+             List<string> list = new List<string>();;
+             SQLiteCommand cmd = new SQLiteCommand("SELECT Sessions.Time FROM Cinemas, Sessions WHERE Sessions.Date='" + date + "' AND Sessions.Film_Id=" + id + " AND Sessions.Cinemas_Id=(SELECT Id FROM Cinemas WHERE Name='"+cinema+"') GROUP BY Cinemas_Id", connection);
+                     list.Add(Convert.ToString(reader["Time"]));
+             return list;
+         }
 
-        public void UpdateSeatsBalanceAndHistory(string login, int numberOfTickets, int oldBalance, int ticketCosts, List<string> seatList, int id, string date, string cinema, string time)
-        {
-            string filmName = "";
-            connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("UPDATE Users SET Balance=" + Convert.ToString(oldBalance-numberOfTickets*ticketCosts)+" WHERE Login='"+login+"';", connection); 
-            cmd.ExecuteNonQuery();
-            cmd = new SQLiteCommand("SELECT Name FROM Films WHERE ID =" + id+" ;", connection);
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                filmName = Convert.ToString(reader[0]);
-            }
-            reader.Close();
-            string seats = string.Join(";", seatList.ToArray()) + ";";
-            cmd = new SQLiteCommand("UPDATE Sessions SET Places = Places || '" + seats + "' WHERE Date='" + date + "' and Film_ID=" + id  +
-                " and Cinemas_Id=(SELECT Id From Cinemas WHERE Cinemas.Name='" + cinema + "') and Time='" + time + "';", connection); 
-            cmd.ExecuteNonQuery();
-            cmd = new SQLiteCommand(("INSERT INTO Balance_History (User_login, Action, Change, Date, Key)"
-            + "VALUES (@User_login, @Action, @Change, @Date, @Key);"), connection);
-            cmd.Parameters.AddWithValue("@User_login", login);
-            cmd.Parameters.AddWithValue("@Action", "Покупка билетов в количестве: " + numberOfTickets + " шт. на сеанс '" + date + " " + filmName + " " + time+"'");
-            cmd.Parameters.AddWithValue("@Change", "-"+numberOfTickets*ticketCosts+" руб.");
-            cmd.Parameters.AddWithValue("@Date", Convert.ToString(DateTime.Today.ToString("dd.MM.yyyy")));
-            cmd.Parameters.AddWithValue("@Key", 0);
-            cmd.ExecuteNonQuery();
-            connection.Close();
-        }
-        public string[,] getBalanceHistory(string login)
-        {
-            connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("SELECT COUNT(*)FROM Balance_History WHERE User_Login='" + login + "';", connection);
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            int count=1;
-            while (reader.Read())
-            {
-                count = Convert.ToInt16(reader[0]);
-            }
-            reader.Close();
-            string[,] toList = new string[count,4];
-            cmd = new SQLiteCommand("SELECT Date, Action, Change, Key FROM Balance_History WHERE User_Login='" + login + "';", connection);
-            reader = cmd.ExecuteReader();
-            int i = 0;
-                while (reader.Read())
-            {
-                    toList[i, 0] = Convert.ToString(reader["Date"]);
-                    toList[i, 1] = Convert.ToString(reader["Action"]);
-                    toList[i, 2] = Convert.ToString(reader["Change"]);
-                    toList[i, 3] = Convert.ToString(reader["Key"]);
-                i++;
-            }
-            reader.Close();
-            connection.Close();
-            return toList;
-        }
+         public string OccSeats(int id, string date, string cinema)
+         {
+             string places = "";
+             connection.Open();
+             SQLiteCommand cmd = new SQLiteCommand("SELECT Sessions.Places FROM Cinemas, Sessions WHERE Sessions.Date='" + date + "' AND Sessions.Film_Id=" + id + " AND Sessions.Cinemas_Id=(SELECT Id FROM Cinemas WHERE Name='" + cinema + "') GROUP BY Cinemas_Id", connection);
+             SQLiteDataReader reader = cmd.ExecuteReader();
+             while (reader.Read())
+             {
+                 places = Convert.ToString(reader["Places"]);
+             }
+             reader.Close();
+             connection.Close();
+             return places;
+         }
 
+         public static float GetPrice(int id, string date, string cinema, string time)
+         {
+             int cinemaId = dbc.Cinemas.Where(x => x.Name == cinema).Select(x => x.Id).First();
+             return dbc.Sessions.Where(x =>
+                 x.Date == date
+                 && x.FilmId == id
+                 && x.CinemaId == cinemaId).Select(x => x.Cost).First();
+         }
+
+         public void UpdateSeatsBalanceAndHistory(string login, int numberOfTickets, int oldBalance, int ticketCosts, List<string> seatList, int id, string date, string cinema, string time)
+         {
+             string filmName = "";
+             connection.Open();
+             SQLiteCommand cmd = new SQLiteCommand("UPDATE Users SET Balance=" + Convert.ToString(oldBalance-numberOfTickets*ticketCosts)+" WHERE Login='"+login+"';", connection); 
+             cmd.ExecuteNonQuery();
+             cmd = new SQLiteCommand("SELECT Name FROM Films WHERE ID =" + id+" ;", connection);
+             SQLiteDataReader reader = cmd.ExecuteReader();
+             while (reader.Read())
+             {
+                 filmName = Convert.ToString(reader[0]);
+             }
+             reader.Close();
+             string seats = string.Join(";", seatList.ToArray()) + ";";
+             cmd = new SQLiteCommand("UPDATE Sessions SET Places = Places || '" + seats + "' WHERE Date='" + date + "' and Film_ID=" + id  +
+                 " and Cinemas_Id=(SELECT Id From Cinemas WHERE Cinemas.Name='" + cinema + "') and Time='" + time + "';", connection); 
+             cmd.ExecuteNonQuery();
+             cmd = new SQLiteCommand(("INSERT INTO Balance_History (User_login, Action, Change, Date, Key)"
+             + "VALUES (@User_login, @Action, @Change, @Date, @Key);"), connection);
+             cmd.Parameters.AddWithValue("@User_login", login);
+             cmd.Parameters.AddWithValue("@Action", "Покупка билетов в количестве: " + numberOfTickets + " шт. на сеанс '" + date + " " + filmName + " " + time+"'");
+             cmd.Parameters.AddWithValue("@Change", "-"+numberOfTickets*ticketCosts+" руб.");
+             cmd.Parameters.AddWithValue("@Date", Convert.ToString(DateTime.Today.ToString("dd.MM.yyyy")));
+             cmd.Parameters.AddWithValue("@Key", 0);
+             cmd.ExecuteNonQuery();
+             connection.Close();
+         }
+
+         public string[,] getBalanceHistory(string login)
+         {
+             connection.Open();
+             SQLiteCommand cmd = new SQLiteCommand("SELECT COUNT(*)FROM Balance_History WHERE User_Login='" + login + "';", connection);
+             SQLiteDataReader reader = cmd.ExecuteReader();
+             int count=1;
+             while (reader.Read())
+             {
+                 count = Convert.ToInt16(reader[0]);
+             }
+             reader.Close();
+             string[,] toList = new string[count,4];
+             cmd = new SQLiteCommand("SELECT Date, Action, Change, Key FROM Balance_History WHERE User_Login='" + login + "';", connection);
+             reader = cmd.ExecuteReader();
+             int i = 0;
+                 while (reader.Read())
+             {
+                     toList[i, 0] = Convert.ToString(reader["Date"]);
+                     toList[i, 1] = Convert.ToString(reader["Action"]);
+                     toList[i, 2] = Convert.ToString(reader["Change"]);
+                     toList[i, 3] = Convert.ToString(reader["Key"]);
+                 i++;
+             }
+             reader.Close();
+             connection.Close();
+             return toList;
+         }*/
+
+        public static async void AddCinema(string name)
+        {
+            Cinema cinema = new Cinema {Name = name};
+            dbc.Cinemas.Add(cinema);
+            await dbc.SaveChangesAsync();
+        }
+        public static async void AddFilm(Film film)
+        {
+            dbc.Films.Add(film);
+            await dbc.SaveChangesAsync();
+        }
+        public static List<string> GetAllCinemas()
+        {
+            return dbc.Cinemas.Select(x => x.Name).ToList();
+        }
+        public static List<Film> GetAllFilms()
+        {
+            return dbc.Films.ToList();
+        }
     }
 }
