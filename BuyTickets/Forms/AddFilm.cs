@@ -1,10 +1,10 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using BuyTickets.DB;
+﻿using BuyTickets.DB;
 using BuyTickets.Models;
 using MaterialSkin;
 using MaterialSkin.Controls;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace BuyTickets.Forms
 {
@@ -22,20 +22,18 @@ namespace BuyTickets.Forms
 
         private void AddFilm_Load(object sender, EventArgs e)
         {
-
         }
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
-            
-                dlg.Title = "Выберите изображение";
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    pictureBox1.Image = Image.FromFile(dlg.FileName);
-                    FilePath = dlg.FileName;
-                }
 
+            dlg.Title = "Выберите изображение";
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                pictureBox1.Image = Image.FromFile(dlg.FileName);
+                FilePath = dlg.FileName;
+            }
         }
 
         private void materialRaisedButton2_Click(object sender, EventArgs e)

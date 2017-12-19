@@ -3,13 +3,11 @@ using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
 using System.Windows.Forms;
-using BuyTickets.Models;
 
 namespace BuyTickets
 {
     public partial class Login : MaterialForm
     {
-
         public Login()
         {
             InitializeComponent();
@@ -32,7 +30,7 @@ namespace BuyTickets
         private void Enter_Click(object sender, EventArgs e)
         {
             var user = Database.Auth(materialSingleLineTextField1.Text, materialSingleLineTextField2.Text);
-            if (user!=null)
+            if (user != null)
             {
                 Main form = new Main(user);
                 form.Show();

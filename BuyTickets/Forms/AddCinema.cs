@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-using BuyTickets.DB;
+﻿using BuyTickets.DB;
 using MaterialSkin;
 using MaterialSkin.Controls;
+using System;
+using System.Windows.Forms;
 
 namespace BuyTickets.Forms
 {
@@ -23,7 +23,6 @@ namespace BuyTickets.Forms
                 listBox1.Items.Add(k.Name);
         }
 
-
         private void addCinemaButton_Click(object sender, EventArgs e)
         {
             if (materialSingleLineTextField1.Text != "")
@@ -36,16 +35,15 @@ namespace BuyTickets.Forms
                     MessageBox.Show("Кинотеатр успешно добавлен!");
                 }
                 else MessageBox.Show("Кинотеатр уже в списке");
-
             }
             else MessageBox.Show("Введите название кинотеатра");
         }
 
         private void EditCinemaButton_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex!=-1)
+            if (listBox1.SelectedIndex != -1)
             {
-                materialSingleLineTextField2.Text = listBox1.SelectedItem.ToString(); 
+                materialSingleLineTextField2.Text = listBox1.SelectedItem.ToString();
                 materialSingleLineTextField2.Visible = true;
                 materialRaisedButton1.Visible = true;
             }

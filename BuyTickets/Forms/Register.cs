@@ -1,10 +1,9 @@
 ﻿using BuyTickets.DB;
+using BuyTickets.Models;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using BuyTickets.Models;
 
 namespace BuyTickets
 {

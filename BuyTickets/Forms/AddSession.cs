@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using BuyTickets.DB;
+﻿using BuyTickets.DB;
 using BuyTickets.Models;
 using MaterialSkin;
 using MaterialSkin.Controls;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace BuyTickets.Forms
 {
     public partial class AddSession : MaterialForm
     {
-        private List<Film> FilmList;
-        private List<Cinema> CinemaList; 
+        private List<Film> _filmList;
+        private List<Cinema> _cinemaList;
+
         public AddSession()
         {
             InitializeComponent();
@@ -29,18 +26,18 @@ namespace BuyTickets.Forms
 
         private void AddSession_Load(object sender, EventArgs e)
         {
-            FilmList = Database.GetAllFilms();
-            CinemaList = Database.GetAllCinemas();
-            foreach (var k in FilmList)
+            _filmList = Database.GetAllFilms();
+            _cinemaList = Database.GetAllCinemas();
+            foreach (var k in _filmList)
                 comboBox1.Items.Add(k.Name);
-            foreach (var k in CinemaList)
+            foreach (var k in _cinemaList)
                 comboBox2.Items.Add(k.Name);
         }
 
         private void materialFlatButton3_Click(object sender, EventArgs e)
         {
-            var film = FilmList.FirstOrDefault(x => x.Name== comboBox1.SelectedItem.ToString());
-            var cinema = CinemaList.FirstOrDefault(x => x.Name == comboBox2.SelectedItem.ToString());
+            var film = _filmList.FirstOrDefault(x => x.Name == comboBox1.SelectedItem.ToString());
+            var cinema = _cinemaList.FirstOrDefault(x => x.Name == comboBox2.SelectedItem.ToString());
             string time = materialSingleLineTextField1.Text;
             float cost = float.Parse(materialSingleLineTextField2.Text, CultureInfo.InvariantCulture.NumberFormat);
             if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
@@ -57,16 +54,15 @@ namespace BuyTickets.Forms
             }
             else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
             {
-                
             }
         }
-        
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.SelectedIndex != -1)
             {
                 var path = AppDomain.CurrentDomain.BaseDirectory;
-                pictureBox1.Image = Image.FromFile(path + "/Images/" + FilmList[comboBox1.SelectedIndex].Image);
+                pictureBox1.Image = Image.FromFile(path + "/Images/" + _filmList[comboBox1.SelectedIndex].Image);
             }
         }
 

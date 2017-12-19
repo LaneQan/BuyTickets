@@ -1,5 +1,4 @@
-﻿using BuyTickets.DB;
-using MaterialSkin;
+﻿using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
 using System.Drawing;
@@ -10,6 +9,7 @@ namespace BuyTickets.Forms
     public partial class Personal : MaterialForm
     {
         private string login;
+
         private void SetHeight(ListView listView, int height)
         {
             ImageList imgList = new ImageList();
@@ -26,25 +26,22 @@ namespace BuyTickets.Forms
             this.login = login;
         }
 
-
         private void Personal_Load(object sender, EventArgs e)
         {
-           /* Font defaultFont = new Font("Microsoft Sans Serif", 12);
-            Database DB = new Database();
-            SetHeight(listView1, 25);
-            string[,] toList = DB.getBalanceHistory(login);
-            for (int i=0;i<toList.GetLength(0);i++)
-            {
-                ListViewItem li = new ListViewItem();
-                li.Text = toList[i, 0] + " | " + toList[i, 1] + " | " + toList[i, 2];
-                li.Font = defaultFont;
-                if (toList[i, 3] == "0")
-                    li.ForeColor = Color.Red;
-                else li.ForeColor = Color.Green;
-                listView1.Items.Add(li);
-            }*/
-
-
+            /* Font defaultFont = new Font("Microsoft Sans Serif", 12);
+             Database DB = new Database();
+             SetHeight(listView1, 25);
+             string[,] toList = DB.getBalanceHistory(login);
+             for (int i=0;i<toList.GetLength(0);i++)
+             {
+                 ListViewItem li = new ListViewItem();
+                 li.Text = toList[i, 0] + " | " + toList[i, 1] + " | " + toList[i, 2];
+                 li.Font = defaultFont;
+                 if (toList[i, 3] == "0")
+                     li.ForeColor = Color.Red;
+                 else li.ForeColor = Color.Green;
+                 listView1.Items.Add(li);
+             }*/
         }
 
         private void Personal_FormClosed(object sender, FormClosedEventArgs e)
@@ -57,7 +54,6 @@ namespace BuyTickets.Forms
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

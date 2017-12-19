@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using BuyTickets.DB;
+using BuyTickets.Forms;
+using BuyTickets.Models;
 using MaterialSkin;
 using MaterialSkin.Controls;
-using System.Data.SQLite;
-using BuyTickets.Forms;
-using BuyTickets.DB;
-using BuyTickets.Models;
+using System;
+using System.Windows.Forms;
 
 namespace BuyTickets
 {
-
     public partial class Main : MaterialForm
     {
         private User _user;
+
         public Main(User user)
         {
             InitializeComponent();
@@ -28,22 +20,19 @@ namespace BuyTickets
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             _user = user;
-
         }
 
-
         private void Main_Load(object sender, EventArgs e)
-        { 
+        {
             if (_user.IsAdmin)
             {
                 materialRaisedButton1.Text = "Кабинет администратора";
                 balance.Text = "";
             }
             else
-            balance.Text = "Баланс: " + Convert.ToString(_user.Balance) + " руб";
+                balance.Text = "Баланс: " + Convert.ToString(_user.Balance) + " руб";
 
             Database.FilmsLoad(imageList1, listView1, DateTime.Today.ToString("dd-MM-yyyy"));
-
         }
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
@@ -56,13 +45,14 @@ namespace BuyTickets
             if (!_user.IsAdmin)
             {
                 Personal form = new Personal(_user.Login);
-                form.Show();            }
-            else {
+                form.Show();
+            }
+            else
+            {
                 AdminPanel form = new AdminPanel();
                 form.Show();
             }
         }
-
 
         private void listView1_ItemActivate(object sender, EventArgs e)
         {

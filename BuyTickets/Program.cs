@@ -1,7 +1,7 @@
-﻿using System;
+﻿using BuyTickets.Models;
+using System;
 using System.Data.Entity;
 using System.Windows.Forms;
-using BuyTickets.Models;
 
 namespace BuyTickets
 {

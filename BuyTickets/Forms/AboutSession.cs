@@ -1,4 +1,5 @@
 ﻿using BuyTickets.DB;
+using BuyTickets.Models;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
@@ -7,7 +8,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using BuyTickets.Models;
 
 namespace BuyTickets.Forms
 {
@@ -30,7 +30,6 @@ namespace BuyTickets.Forms
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
 
-
             this.filmId = filmId;
             this.date = date;
             film = Database.GetFilmById(filmId);
@@ -42,14 +41,14 @@ namespace BuyTickets.Forms
 
         private void AboutSession_Load(object sender, EventArgs e)
         {
-            pictureBox1.Image = Image.FromFile(System.AppDomain.CurrentDomain.BaseDirectory+@"\Images\" + film.Image);
+            pictureBox1.Image = Image.FromFile(System.AppDomain.CurrentDomain.BaseDirectory + @"\Images\" + film.Image);
             var input = film.Description;
-             var lines_1 = Regex.Split(input, @"(.{1," + 55 + @"})(?:\s|$)")
-                         .Where(x => x.Length > 0)
-                         .Select(x => x.Trim()).ToArray(); ;
-             listBox1.Items.AddRange(lines_1);
-             foreach (var p in sessions.GroupBy(t => t.CinemaId).Select(x => x.First()).ToList())
-               comboBox1.Items.Add(Database.GetCinemaNameById(p.CinemaId)); 
+            var lines_1 = Regex.Split(input, @"(.{1," + 55 + @"})(?:\s|$)")
+                        .Where(x => x.Length > 0)
+                        .Select(x => x.Trim()).ToArray(); ;
+            listBox1.Items.AddRange(lines_1);
+            foreach (var p in sessions.GroupBy(t => t.CinemaId).Select(x => x.First()).ToList())
+                comboBox1.Items.Add(Database.GetCinemaNameById(p.CinemaId));
         }
 
         private void setAllComponentsNull(Panel panel)
@@ -66,45 +65,44 @@ namespace BuyTickets.Forms
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
-             if (NumberOfTickets != 0)
-             {
-                 if (user.Balance >= NumberOfTickets * price)
-                 {
-                     var result = MessageBox.Show("Количество билетов: " + NumberOfTickets.ToString() + ".\nСумма к оплате: " +
-                         Convert.ToString(NumberOfTickets * price) + " руб.\nВы подтверждаете покупку?", "Подтверждение покупки", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                     if (result == DialogResult.Yes)
-                     {
-                         List<string> btnList = new List<string>();
-                         foreach (Control ctrl in panel1.Controls)
-                         {
-                             if (ctrl.BackColor == Color.Green)
-                                 btnList.Add(ctrl.Name);
-                         }
-                         DB.UpdateSeatsBalanceAndHistory(login, NumberOfTickets, balance, price, btnList, id, date, Convert.ToString(comboBox1.SelectedItem), Convert.ToString(comboBox2.SelectedItem));
-                         materialLabel3.Text = "Количество билетов: 0 шт.";
-                         materialLabel4.Text = "Общая цена: 0 руб.";
-                         foreach (Control ctrl in panel1.Controls)
-                         {
-                             if (ctrl.BackColor == Color.Green)
-                             {
-                                 ctrl.BackColor = Color.Red;
-                                 ctrl.Enabled = false;
-                             }
-                         }
-                         Main fc = (Main)Application.OpenForms["Main"];
-                         user.Balance -= NumberOfTickets * price;
-                         if (fc != null)
-                         {
-                             fc.balance.Text = "Баланс: " + Convert.ToString(balance) + " руб";
-                         }
-                         // Изменение профиля юзера, сохранение баланса
-                         MessageBox.Show("Благодарим за покупку!");
-                     }
-                 }
-                 else MessageBox.Show("Недостаточно денег на балансе!");
- 
-             }
-             else MessageBox.Show("Выберите места для покупки!");
+            if (NumberOfTickets != 0)
+            {
+                if (user.Balance >= NumberOfTickets * price)
+                {
+                    var result = MessageBox.Show("Количество билетов: " + NumberOfTickets.ToString() + ".\nСумма к оплате: " +
+                        Convert.ToString(NumberOfTickets * price) + " руб.\nВы подтверждаете покупку?", "Подтверждение покупки", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        List<string> btnList = new List<string>();
+                        foreach (Control ctrl in panel1.Controls)
+                        {
+                            if (ctrl.BackColor == Color.Green)
+                                btnList.Add(ctrl.Name);
+                        }
+                        DB.UpdateSeatsBalanceAndHistory(login, NumberOfTickets, balance, price, btnList, id, date, Convert.ToString(comboBox1.SelectedItem), Convert.ToString(comboBox2.SelectedItem));
+                        materialLabel3.Text = "Количество билетов: 0 шт.";
+                        materialLabel4.Text = "Общая цена: 0 руб.";
+                        foreach (Control ctrl in panel1.Controls)
+                        {
+                            if (ctrl.BackColor == Color.Green)
+                            {
+                                ctrl.BackColor = Color.Red;
+                                ctrl.Enabled = false;
+                            }
+                        }
+                        Main fc = (Main)Application.OpenForms["Main"];
+                        user.Balance -= NumberOfTickets * price;
+                        if (fc != null)
+                        {
+                            fc.balance.Text = "Баланс: " + Convert.ToString(balance) + " руб";
+                        }
+                        // Изменение профиля юзера, сохранение баланса
+                        MessageBox.Show("Благодарим за покупку!");
+                    }
+                }
+                else MessageBox.Show("Недостаточно денег на балансе!");
+            }
+            else MessageBox.Show("Выберите места для покупки!");
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -126,9 +124,9 @@ namespace BuyTickets.Forms
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             setAllComponentsNull(panel1);
-             if (!panel1.Visible)
-                 panel1.Visible = true;
-             materialRaisedButton1.Visible = true;
+            if (!panel1.Visible)
+                panel1.Visible = true;
+            materialRaisedButton1.Visible = true;
             currentSession = sessions.First(x => x.Time == comboBox2.SelectedItem.ToString());
             price = currentSession.Cost;
             if (currentSession.OccSeats != null)
@@ -137,10 +135,8 @@ namespace BuyTickets.Forms
                 {
                     panel1.Controls[seat.Name].Enabled = false;
                     panel1.Controls[seat.Name].BackColor = Color.Red;
-
                 }
             }
-
         }
 
         /*private List<string> getOccSeats()
@@ -158,11 +154,9 @@ namespace BuyTickets.Forms
                         list.Add(seat);
                         seat = "";
                     }
-
             }
             else list.Add("0");
             return list;*/
-
 
         private void onClick(object sender, EventArgs e)
         {

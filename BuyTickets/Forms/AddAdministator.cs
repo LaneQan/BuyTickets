@@ -1,8 +1,6 @@
-﻿using BuyTickets.DB;
-using MaterialSkin;
+﻿using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
-using System.Windows.Forms;
 
 namespace BuyTickets.Forms
 {
