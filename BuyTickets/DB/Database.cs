@@ -97,34 +97,9 @@ namespace BuyTickets.DB
             return film.Name + "\n\n" + film.Description;
         }
 
-        /*public static async Task<List<string>> CinemasLoad(int FilmId, string date) // переделать LINQ запрос в сложный
-        {
-            var cinemasIds = await dbc.Sessions.Where(x => x.FilmId == FilmId && x.Date == date).Select(x => x.CinemaId).ToListAsync();
-            return list;
-        }*/
 
-        /* public List<string> TimeLoad(int id, string date, string cinema)
-         {
-             List<string> list = new List<string>();;
-             SQLiteCommand cmd = new SQLiteCommand("SELECT Sessions.Time FROM Cinemas, Sessions WHERE Sessions.Date='" + date + "' AND Sessions.Film_Id=" + id + " AND Sessions.Cinemas_Id=(SELECT Id FROM Cinemas WHERE Name='"+cinema+"') GROUP BY Cinemas_Id", connection);
-                     list.Add(Convert.ToString(reader["Time"]));
-             return list;
-         }
+        /* 
 
-         public string OccSeats(int id, string date, string cinema)
-         {
-             string places = "";
-             connection.Open();
-             SQLiteCommand cmd = new SQLiteCommand("SELECT Sessions.Places FROM Cinemas, Sessions WHERE Sessions.Date='" + date + "' AND Sessions.Film_Id=" + id + " AND Sessions.Cinemas_Id=(SELECT Id FROM Cinemas WHERE Name='" + cinema + "') GROUP BY Cinemas_Id", connection);
-             SQLiteDataReader reader = cmd.ExecuteReader();
-             while (reader.Read())
-             {
-                 places = Convert.ToString(reader["Places"]);
-             }
-             reader.Close();
-             connection.Close();
-             return places;
-         }
 
          public static float GetPrice(int id, string date, string cinema, string time)
          {
