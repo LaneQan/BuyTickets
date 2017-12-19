@@ -15,6 +15,7 @@ namespace BuyTickets.Models
         public DbSet<Film> Films { get; set; }
         public DbSet<Place> Places { get; set; }
         public DbSet<Session> Sessions { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; } 
+        public DbSet<OccSeat> OccSeats { get; set; }
     }
 }

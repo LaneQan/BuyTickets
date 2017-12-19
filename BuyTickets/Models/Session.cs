@@ -13,7 +13,12 @@ namespace BuyTickets.Models
         public int CinemaId { get; set; }
         public string Date { get; set; }
         public string Time { get; set; }
-        public List<Place> Places { get; set; }
         public float Cost { get; set; }
+        public List<OccSeat> OccSeats { get; set; }
+
+        public Session()
+        {
+            OccSeats = new List<OccSeat>();
+        }
     }
 }

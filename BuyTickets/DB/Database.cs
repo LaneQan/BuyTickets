@@ -19,38 +19,37 @@ namespace BuyTickets.DB
         public static User Auth(string login, string password)
         {
             password = Md5Crypt(password);
+
+
+            /*var user2 = dbc.Users.FirstOrDefault(x => x.Login == "admin1");
+            user2.IsAdmin = true;
+            user2.Name = "admin";
+
+            dbc.Entry(user2).State = EntityState.Modified;
+             dbc.SaveChanges();*/
+
             var user = dbc.Users.FirstOrDefault(x => x.Login == login && x.Password == password);
             return user;
         }
 
-        /*public void FilmsLoad(ImageList imageList, ListView listView, string date)
+        public static void FilmsLoad(ImageList imageList, ListView listView, string date)
         {
-            List<int> FilmId = new List<int>();
-            connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("SELECT Film_Id FROM Sessions WHERE Date='" + date + "' GROUP BY Film_id;", connection);
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                FilmId.Add(Convert.ToInt16(reader[0]));
-            }
-            reader.Close();
-            cmd = new SQLiteCommand("SELECT * FROM Films;", connection);
-            reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                string path = @"..\..\Images\" + reader["Id"].ToString() + ".jpg";
-                imageList.Images.Add(reader["Name"].ToString(), Image.FromFile(path));
-            }
-            reader.Close();
-            connection.Close();
+            List<Session> sessions = dbc.Sessions.Where(x => x.Date == date).ToList();
+            var results = sessions.GroupBy(x => x.FilmId).Select(y => y.First()).ToList();
+            List<Film> films = new List<Film>();
+            foreach (var s in results)
+                films.Add(dbc.Films.FirstOrDefault(x => x.Id == s.FilmId));
             int k = 0;
-            foreach (int p in FilmId)
+            foreach (var b in films)
             {
-                listView.Items.Add(imageList.Images.Keys[p].ToString()).ImageIndex = p;
-                listView.Items[k].Tag = p;
+                imageList.Images.Add(b.Name,
+                    Image.FromFile(System.AppDomain.CurrentDomain.BaseDirectory + @"\Images\" + b.Image));
+
+                listView.Items.Add(imageList.Images.Keys[k]).ImageIndex = k;
+                listView.Items[k].Tag = b.Id;
                 k++;
             }
-        }*/
+        }
 
         public static async void Registration(User user)
         {
@@ -198,18 +197,65 @@ namespace BuyTickets.DB
             dbc.Cinemas.Add(cinema);
             await dbc.SaveChangesAsync();
         }
+
         public static async void AddFilm(Film film)
         {
             dbc.Films.Add(film);
             await dbc.SaveChangesAsync();
         }
-        public static List<string> GetAllCinemas()
+
+        public static List<Cinema> GetAllCinemas()
         {
-            return dbc.Cinemas.Select(x => x.Name).ToList();
+            return dbc.Cinemas.ToList();
         }
+
         public static List<Film> GetAllFilms()
         {
             return dbc.Films.ToList();
         }
+
+        public static bool CinemaOnDatabase(string name)
+        {
+            if (dbc.Cinemas.FirstOrDefault(t => t.Name == name) != null)
+                return true;
+            else return false;
+        }
+
+        public static async void ChangeCinemasName(string name, string newName)
+        {
+            var cinema = await dbc.Cinemas.FirstOrDefaultAsync(x => x.Name == name);
+            cinema.Name = newName;
+            dbc.Entry(cinema).State = EntityState.Modified;
+            await dbc.SaveChangesAsync();
+        }
+
+        public static async void AddSession(Session session)
+        {
+            dbc.Sessions.Add(session);
+            await dbc.SaveChangesAsync();
+        }
+
+        public static Film GetFilmById(int id)
+        {
+            return dbc.Films.FirstOrDefault(x => x.Id == id);
+        }
+
+        public static List<Session> GetSessionsByIdAndDate(int id, string date)
+        {
+            return dbc.Sessions.Where(x => x.FilmId == id && x.Date == date).ToList();
+   
+        }
+
+        public static string GetCinemaNameById(int id)
+        {
+            return dbc.Cinemas.FirstOrDefault(x => x.Id == id).Name;
+        }
+        public static int GetIdByCinemaName(string name)
+        {
+            return dbc.Cinemas.FirstOrDefault(x => x.Name == name).Id;
+        }
+
     }
+
 }
+ 

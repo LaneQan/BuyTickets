@@ -33,7 +33,7 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.materialRaisedButton1 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            this.balance = new MaterialSkin.Controls.MaterialLabel();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
@@ -51,7 +51,6 @@
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.ItemActivate += new System.EventHandler(this.listView1_ItemActivate);
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged_1);
             // 
             // imageList1
             // 
@@ -85,17 +84,17 @@
             this.materialRaisedButton1.UseVisualStyleBackColor = true;
             this.materialRaisedButton1.Click += new System.EventHandler(this.materialRaisedButton1_Click);
             // 
-            // materialLabel2
+            // balance
             // 
-            this.materialLabel2.AutoSize = true;
-            this.materialLabel2.Depth = 0;
-            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 11F);
-            this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel2.Location = new System.Drawing.Point(485, 77);
-            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel2.Name = "materialLabel2";
-            this.materialLabel2.Size = new System.Drawing.Size(0, 19);
-            this.materialLabel2.TabIndex = 3;
+            this.balance.AutoSize = true;
+            this.balance.Depth = 0;
+            this.balance.Font = new System.Drawing.Font("Roboto", 11F);
+            this.balance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.balance.Location = new System.Drawing.Point(485, 77);
+            this.balance.MouseState = MaterialSkin.MouseState.HOVER;
+            this.balance.Name = "balance";
+            this.balance.Size = new System.Drawing.Size(0, 19);
+            this.balance.TabIndex = 3;
             // 
             // dateTimePicker1
             // 
@@ -111,7 +110,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(830, 688);
             this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.materialLabel2);
+            this.Controls.Add(this.balance);
             this.Controls.Add(this.materialRaisedButton1);
             this.Controls.Add(this.materialLabel1);
             this.Controls.Add(this.listView1);
@@ -132,7 +131,7 @@
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
         private System.Windows.Forms.ImageList imageList1;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton1;
-        public MaterialSkin.Controls.MaterialLabel materialLabel2;
+        public MaterialSkin.Controls.MaterialLabel balance;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

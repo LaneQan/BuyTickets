@@ -7,37 +7,49 @@ using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using BuyTickets.Models;
 
 namespace BuyTickets.Forms
 {
     public partial class AboutSession : MaterialForm
     {
-        private int NumberOfTickets = 0;
-        private int price = 0;
-        private int id;
+        private int NumberOfTickets;
+        private float price;
+
+        private Film film;
+        private List<Session> sessions;
+        private Session currentSession;
+        private User user;
+        private int filmId;
         private string date;
 
-        public AboutSession(int id, string date)
+        public AboutSession(int filmId, string date, User user)
         {
             InitializeComponent();
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            this.id = id;
+
+
+            this.filmId = filmId;
             this.date = date;
+            film = Database.GetFilmById(filmId);
+            sessions = Database.GetSessionsByIdAndDate(filmId, date);
+            NumberOfTickets = 0;
+            price = 0;
+            this.user = user;
         }
 
         private void AboutSession_Load(object sender, EventArgs e)
         {
-            /* pictureBox1.Image = Image.FromFile(@"..\..\Images\" + id + ".jpg");
-             var input = DB.returnDescript(id);
+            pictureBox1.Image = Image.FromFile(System.AppDomain.CurrentDomain.BaseDirectory+@"\Images\" + film.Image);
+            var input = film.Description;
              var lines_1 = Regex.Split(input, @"(.{1," + 55 + @"})(?:\s|$)")
                          .Where(x => x.Length > 0)
                          .Select(x => x.Trim()).ToArray(); ;
              listBox1.Items.AddRange(lines_1);
-             List<string> cinemas = DB.CinemasLoad(id, date);
-             foreach (string p in cinemas)
-                 comboBox1.Items.Add(p);*/
+             foreach (var p in sessions.GroupBy(t => t.CinemaId).Select(x => x.First()).ToList())
+               comboBox1.Items.Add(Database.GetCinemaNameById(p.CinemaId)); 
         }
 
         private void setAllComponentsNull(Panel panel)
@@ -54,9 +66,9 @@ namespace BuyTickets.Forms
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
-            /* if (NumberOfTickets != 0)
+             if (NumberOfTickets != 0)
              {
-                 if (balance >= NumberOfTickets * price)
+                 if (user.Balance >= NumberOfTickets * price)
                  {
                      var result = MessageBox.Show("Количество билетов: " + NumberOfTickets.ToString() + ".\nСумма к оплате: " +
                          Convert.ToString(NumberOfTickets * price) + " руб.\nВы подтверждаете покупку?", "Подтверждение покупки", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -80,50 +92,55 @@ namespace BuyTickets.Forms
                              }
                          }
                          Main fc = (Main)Application.OpenForms["Main"];
-                         balance -= NumberOfTickets * price;
+                         user.Balance -= NumberOfTickets * price;
                          if (fc != null)
                          {
-                             fc.materialLabel2.Text = "Баланс: " + Convert.ToString(balance) + " руб";
-                             fc.balance = balance;
+                             fc.balance.Text = "Баланс: " + Convert.ToString(balance) + " руб";
                          }
+                         // Изменение профиля юзера, сохранение баланса
                          MessageBox.Show("Благодарим за покупку!");
                      }
                  }
                  else MessageBox.Show("Недостаточно денег на балансе!");
  
              }
-             else MessageBox.Show("Выберите места для покупки!");*/
+             else MessageBox.Show("Выберите места для покупки!");
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /*setAllComponentsNull(panel1);
+            setAllComponentsNull(panel1);
             if (panel1.Visible)
                 panel1.Visible = false;
-            List<string> time = DB.TimeLoad(id, date, Convert.ToString(comboBox1.SelectedItem)); 
+            sessions = sessions.Where(x => x.CinemaId == Database.GetIdByCinemaName(comboBox1.SelectedItem.ToString()))
+                .ToList();
+            List<string> time = sessions.Select(x => x.Time).ToList();
             comboBox2.Items.Clear();
             foreach (string p in time)
             {
                 comboBox2.Items.Add(p);
             }
-            comboBox2.Enabled = true;*/
+            comboBox2.Enabled = true;
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /* setAllComponentsNull(panel1);
+            setAllComponentsNull(panel1);
              if (!panel1.Visible)
                  panel1.Visible = true;
              materialRaisedButton1.Visible = true;
-             price = DB.GetPrice(id, date, Convert.ToString(comboBox1.SelectedItem), Convert.ToString(comboBox2.SelectedItem));
-             List<string> list = new List<string>(getOccSeats());
-             foreach (string seat in list)
-             {
-                 panel1.Controls[seat].Enabled = false;
-                 panel1.Controls[seat].BackColor = Color.Red;
- 
-             }
-             */
+            currentSession = sessions.First(x => x.Time == comboBox2.SelectedItem.ToString());
+            price = currentSession.Cost;
+            if (currentSession.OccSeats != null)
+            {
+                foreach (var seat in currentSession.OccSeats)
+                {
+                    panel1.Controls[seat.Name].Enabled = false;
+                    panel1.Controls[seat.Name].BackColor = Color.Red;
+
+                }
+            }
+
         }
 
         /*private List<string> getOccSeats()

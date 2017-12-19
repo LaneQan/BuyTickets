@@ -37,12 +37,12 @@ namespace BuyTickets
             if (_user.IsAdmin)
             {
                 materialRaisedButton1.Text = "Кабинет администратора";
-                materialLabel2.Text = "";
+                balance.Text = "";
             }
             else
-            materialLabel2.Text = "Баланс: " + Convert.ToString(_user.Balance) + " руб";
+            balance.Text = "Баланс: " + Convert.ToString(_user.Balance) + " руб";
 
-            //DB.FilmsLoad(imageList1, listView1, DateTime.Today.ToString("dd.MM.yyyy"));
+            Database.FilmsLoad(imageList1, listView1, DateTime.Today.ToString("dd-MM-yyyy"));
 
         }
 
@@ -63,21 +63,18 @@ namespace BuyTickets
             }
         }
 
-        private void listView1_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-        }
 
         private void listView1_ItemActivate(object sender, EventArgs e)
         {
-            AboutSession form = new AboutSession(Convert.ToInt16(listView1.SelectedItems[0].Tag), dateTimePicker1.Value.ToString("dd.MM.yyyy"));
+            AboutSession form = new AboutSession(Convert.ToInt16(listView1.SelectedItems[0].Tag), dateTimePicker1.Value.ToString("dd-MM-yyyy"), _user);
             form.Show();
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-           /* imageList1.Images.Clear();
+            imageList1.Images.Clear();
             listView1.Items.Clear();
-            DB.FilmsLoad(imageList1, listView1, dateTimePicker1.Value.ToString("dd.MM.yyyy"));*/
+            Database.FilmsLoad(imageList1, listView1, dateTimePicker1.Value.ToString("dd-MM-yyyy"));
         }
     }
 }

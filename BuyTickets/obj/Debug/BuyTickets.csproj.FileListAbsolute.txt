@@ -93,7 +93,6 @@ C:\Users\NoteBook\Source\Repos\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Forms.
 C:\Users\NoteBook\Source\Repos\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Login.resources
 C:\Users\NoteBook\Source\Repos\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Main.resources
 C:\Users\NoteBook\Source\Repos\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Forms.Personal.resources
-C:\Users\NoteBook\Source\Repos\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Forms.Session.resources
 C:\Users\NoteBook\Source\Repos\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Properties.Resources.resources
 C:\Users\NoteBook\Source\Repos\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Register.resources
 C:\Users\NoteBook\Source\Repos\BuyTickets\BuyTickets\obj\Debug\BuyTickets.csproj.GenerateResource.Cache

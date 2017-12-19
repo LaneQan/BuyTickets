@@ -11,6 +11,7 @@ namespace BuyTickets.Forms
     public partial class AddFilm : MaterialForm
     {
         public string FilePath;
+
         public AddFilm()
         {
             InitializeComponent();
