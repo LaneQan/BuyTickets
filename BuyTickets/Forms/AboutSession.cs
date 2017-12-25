@@ -65,7 +65,7 @@ namespace BuyTickets.Forms
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
-            if (NumberOfTickets != 0)
+           /* if (NumberOfTickets != 0)
             {
                 if (user.Balance >= NumberOfTickets * price)
                 {
@@ -102,7 +102,7 @@ namespace BuyTickets.Forms
                 }
                 else MessageBox.Show("Недостаточно денег на балансе!");
             }
-            else MessageBox.Show("Выберите места для покупки!");
+            else MessageBox.Show("Выберите места для покупки!");*/
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
