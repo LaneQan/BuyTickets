@@ -67,7 +67,7 @@ namespace BuyTickets.DB
             else return false;
         }
 
-        private static string Md5Crypt(string toCrypt)
+        public static string Md5Crypt(string toCrypt)
         {
             MD5 md5 = MD5.Create();
             byte[] inputBytes = Encoding.ASCII.GetBytes(toCrypt);
@@ -201,6 +201,12 @@ namespace BuyTickets.DB
                 return true;
             }
             else return false;
+        }
+        public static void ChangePassword(User user, string newPassword)
+        {
+                user.Password = Md5Crypt(newPassword);
+                _db.Entry(user).State = EntityState.Modified;
+                _db.SaveChanges();
         }
     }
 }
