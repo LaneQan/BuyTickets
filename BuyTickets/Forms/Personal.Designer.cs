@@ -67,6 +67,7 @@
             this.materialRaisedButton2.TabIndex = 12;
             this.materialRaisedButton2.Text = "Изменить E-MAIL";
             this.materialRaisedButton2.UseVisualStyleBackColor = true;
+            this.materialRaisedButton2.Click += new System.EventHandler(this.materialRaisedButton2_Click);
             // 
             // Personal
             // 

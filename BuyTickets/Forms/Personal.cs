@@ -1,14 +1,17 @@
 ﻿using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using BuyTickets.DB;
+using BuyTickets.Models;
 
 namespace BuyTickets.Forms
 {
     public partial class Personal : MaterialForm
     {
-        private string login;
+        private User _user;
 
         private void SetHeight(ListView listView, int height)
         {
@@ -17,31 +20,30 @@ namespace BuyTickets.Forms
             listView.SmallImageList = imgList;
         }
 
-        public Personal(string login)
+        public Personal(User user)
         {
             InitializeComponent();
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            this.login = login;
+            this._user = user;
         }
 
         private void Personal_Load(object sender, EventArgs e)
         {
-            /* Font defaultFont = new Font("Microsoft Sans Serif", 12);
-             Database DB = new Database();
+             Font defaultFont = new Font("Microsoft Sans Serif", 16);
              SetHeight(listView1, 25);
-             string[,] toList = DB.getBalanceHistory(login);
-             for (int i=0;i<toList.GetLength(0);i++)
+             List<BalanceHistory> balanceHistoryList = Database.getBalanceHistoryById(_user.Id);
+             foreach (var k in balanceHistoryList)
              {
                  ListViewItem li = new ListViewItem();
-                 li.Text = toList[i, 0] + " | " + toList[i, 1] + " | " + toList[i, 2];
+                 li.Text = k.Action;
                  li.Font = defaultFont;
-                 if (toList[i, 3] == "0")
+                 if (k.Key == 0)
                      li.ForeColor = Color.Red;
                  else li.ForeColor = Color.Green;
                  listView1.Items.Add(li);
-             }*/
+             }
         }
 
         private void Personal_FormClosed(object sender, FormClosedEventArgs e)
@@ -54,6 +56,16 @@ namespace BuyTickets.Forms
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
+            ChangePassword form = new ChangePassword(_user);
+            form.Show();
+            this.Visible = false;
+        }
+
+        private void materialRaisedButton2_Click(object sender, EventArgs e)
+        {
+            ChangeEmail form = new ChangeEmail(_user);
+            form.Show();
+            this.Visible = false;
         }
     }
 }

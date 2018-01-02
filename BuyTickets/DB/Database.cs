@@ -20,12 +20,14 @@ namespace BuyTickets.DB
         {
             password = Md5Crypt(password);
 
-            /*var user2 = _db.Users.FirstOrDefault(x => x.Login == "admin1");
-            user2.IsAdmin = true;
-            user2.Name = "admin";
-
-            _db.Entry(user2).State = EntityState.Modified;
-             _db.SaveChanges();*/
+            //var user2 = _db.Users.FirstOrDefault(x => x.Login == "useruser");
+            //user2.Balance = 100;
+            //user2.IsAdmin = false;
+            //_db.Entry(user2).State = EntityState.Modified;
+            //var user3 = _db.Users.FirstOrDefault(x => x.Login == "adminadmin");
+            //user3.IsAdmin = true;
+            //_db.Entry(user3).State = EntityState.Modified;
+            _db.SaveChanges();
 
             var user = _db.Users.FirstOrDefault(x => x.Login == login && x.Password == password);
             return user;
@@ -96,72 +98,34 @@ namespace BuyTickets.DB
             return film.Name + "\n\n" + film.Description;
         }
 
-        /*
+        
 
-         public static float GetPrice(int id, string date, string cinema, string time)
+         public static void UpdateSeatsBalanceAndHistory(User user, Session session, int ticketsCount, List<string> btnList)
          {
-             int cinemaId = _db.Cinemas.Where(x => x.Name == cinema).Select(x => x.Id).First();
-             return _db.Sessions.Where(x =>
-                 x.Date == date
-                 && x.FilmId == id
-                 && x.CinemaId == cinemaId).Select(x => x.Cost).First();
+      
+            foreach (string k in btnList)
+             {
+                 session.OccSeats.Add(new OccSeat { Name = k});
+             }
+             _db.BalanceHistory.Add(new BalanceHistory
+             {
+                 Action = "Покупка билетов в количестве " + ticketsCount + " шт. на сеанс '" + session.Date + " " +
+                          GetFilmById(session.FilmId).Name + " " + session.Time + "'",
+                 Date = session.Date,
+                 Key = 0,
+                 Change = "-" + session.Cost * ticketsCount + " руб.",
+                 UserId = user.Id
+             });
+             user.Balance -= session.Cost * ticketsCount;
+             _db.Entry(user).State = EntityState.Modified;
+             _db.Entry(session).State = EntityState.Modified;
+             _db.SaveChanges();
+        }
+        
+         public static List<BalanceHistory> getBalanceHistoryById(int id)
+         {
+             return _db.BalanceHistory.Where(x => x.UserId == id).ToList();
          }
-
-         public void UpdateSeatsBalanceAndHistory(string login, int numberOfTickets, int oldBalance, int ticketCosts, List<string> seatList, int id, string date, string cinema, string time)
-         {
-             string filmName = "";
-             connection.Open();
-             SQLiteCommand cmd = new SQLiteCommand("UPDATE Users SET Balance=" + Convert.ToString(oldBalance-numberOfTickets*ticketCosts)+" WHERE Login='"+login+"';", connection);
-             cmd.ExecuteNonQuery();
-             cmd = new SQLiteCommand("SELECT Name FROM Films WHERE ID =" + id+" ;", connection);
-             SQLiteDataReader reader = cmd.ExecuteReader();
-             while (reader.Read())
-             {
-                 filmName = Convert.ToString(reader[0]);
-             }
-             reader.Close();
-             string seats = string.Join(";", seatList.ToArray()) + ";";
-             cmd = new SQLiteCommand("UPDATE Sessions SET Places = Places || '" + seats + "' WHERE Date='" + date + "' and Film_ID=" + id  +
-                 " and Cinemas_Id=(SELECT Id From Cinemas WHERE Cinemas.Name='" + cinema + "') and Time='" + time + "';", connection);
-             cmd.ExecuteNonQuery();
-             cmd = new SQLiteCommand(("INSERT INTO Balance_History (User_login, Action, Change, Date, Key)"
-             + "VALUES (@User_login, @Action, @Change, @Date, @Key);"), connection);
-             cmd.Parameters.AddWithValue("@User_login", login);
-             cmd.Parameters.AddWithValue("@Action", "Покупка билетов в количестве: " + numberOfTickets + " шт. на сеанс '" + date + " " + filmName + " " + time+"'");
-             cmd.Parameters.AddWithValue("@Change", "-"+numberOfTickets*ticketCosts+" руб.");
-             cmd.Parameters.AddWithValue("@Date", Convert.ToString(DateTime.Today.ToString("dd.MM.yyyy")));
-             cmd.Parameters.AddWithValue("@Key", 0);
-             cmd.ExecuteNonQuery();
-             connection.Close();
-         }
-
-         public string[,] getBalanceHistory(string login)
-         {
-             connection.Open();
-             SQLiteCommand cmd = new SQLiteCommand("SELECT COUNT(*)FROM Balance_History WHERE User_Login='" + login + "';", connection);
-             SQLiteDataReader reader = cmd.ExecuteReader();
-             int count=1;
-             while (reader.Read())
-             {
-                 count = Convert.ToInt16(reader[0]);
-             }
-             reader.Close();
-             string[,] toList = new string[count,4];
-             cmd = new SQLiteCommand("SELECT Date, Action, Change, Key FROM Balance_History WHERE User_Login='" + login + "';", connection);
-             reader = cmd.ExecuteReader();
-             int i = 0;
-                 while (reader.Read())
-             {
-                     toList[i, 0] = Convert.ToString(reader["Date"]);
-                     toList[i, 1] = Convert.ToString(reader["Action"]);
-                     toList[i, 2] = Convert.ToString(reader["Change"]);
-                     toList[i, 3] = Convert.ToString(reader["Key"]);
-                 i++;
-             }
-             reader.Close();
-             connection.Close();
-             return toList;
-         }*/
 
         public static async void AddCinema(string name)
         {
@@ -201,10 +165,10 @@ namespace BuyTickets.DB
             await _db.SaveChangesAsync();
         }
 
-        public static async void AddSession(Session session)
+        public static  void AddSession(Session session)
         {
             _db.Sessions.Add(session);
-            await _db.SaveChangesAsync();
+            _db.SaveChanges();
         }
 
         public static Film GetFilmById(int id)
@@ -214,7 +178,7 @@ namespace BuyTickets.DB
 
         public static List<Session> GetSessionsByIdAndDate(int id, string date)
         {
-            return _db.Sessions.Where(x => x.FilmId == id && x.Date == date).ToList();
+            return _db.Sessions.Include(x => x.OccSeats).Where(x => x.FilmId == id && x.Date == date).ToList();
         }
 
         public static string GetCinemaNameById(int id)
@@ -225,6 +189,18 @@ namespace BuyTickets.DB
         public static int GetIdByCinemaName(string name)
         {
             return _db.Cinemas.FirstOrDefault(x => x.Name == name).Id;
+        }
+
+        public static bool ChangeMail(User user, string newMail)
+        {
+            if (_db.Users.Where(x => x.Mail == newMail) != null)
+            {
+                user.Mail = newMail;
+                _db.Entry(user).State = EntityState.Modified;
+                _db.SaveChanges();
+                return true;
+            }
+            else return false;
         }
     }
 }

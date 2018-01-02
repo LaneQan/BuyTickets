@@ -44,7 +44,7 @@ namespace BuyTickets
         {
             if (!_user.IsAdmin)
             {
-                Personal form = new Personal(_user.Login);
+                Personal form = new Personal(_user);
                 form.Show();
             }
             else

@@ -54,6 +54,20 @@ namespace BuyTickets.Forms
             }
             else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
             {
+                var currentDate = dateTimePicker2.Value;
+                while (currentDate.Day != dateTimePicker3.Value.Day+1)
+                {
+                    var session = new Session
+                    {
+                        FilmId = film.Id,
+                        CinemaId = cinema.Id,
+                        Time = time,
+                        Cost = cost,
+                        Date = currentDate.ToString("dd-MM-yyyy")
+                    };
+                    Database.AddSession(session);
+                    currentDate = currentDate.AddDays(1);
+                }
             }
         }
 

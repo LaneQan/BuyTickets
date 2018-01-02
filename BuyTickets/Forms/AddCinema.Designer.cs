@@ -40,10 +40,12 @@
             // 
             // listBox1
             // 
+            this.listBox1.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 23;
             this.listBox1.Location = new System.Drawing.Point(29, 122);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(211, 225);
+            this.listBox1.Size = new System.Drawing.Size(226, 234);
             this.listBox1.TabIndex = 0;
             // 
             // materialSingleLineTextField1

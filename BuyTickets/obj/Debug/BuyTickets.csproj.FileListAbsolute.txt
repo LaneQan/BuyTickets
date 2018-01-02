@@ -100,3 +100,5 @@ C:\Users\NoteBook\Source\Repos\BuyTickets\BuyTickets\obj\Debug\BuyTickets.csproj
 C:\Users\NoteBook\Source\Repos\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Forms.AddSession.resources
 C:\Users\NoteBook\Source\Repos\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Forms.AddCinema.resources
 C:\Users\NoteBook\Source\Repos\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Forms.AddFilm.resources
+C:\Users\NoteBook\Source\Repos\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Forms.ChangeEmail.resources
+C:\Users\NoteBook\Source\Repos\BuyTickets\BuyTickets\obj\Debug\BuyTickets.Forms.ChangePassword.resources
