@@ -51,6 +51,7 @@ namespace BuyTickets.Forms
                     Date = dateTimePicker1.Value.ToString("dd-MM-yyyy")
                 };
                 Database.AddSession(session);
+                MessageBox.Show(@"Успешно добавлено!");
             }
             else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
             {
@@ -68,6 +69,7 @@ namespace BuyTickets.Forms
                     Database.AddSession(session);
                     currentDate = currentDate.AddDays(1);
                 }
+                MessageBox.Show(@"Успешно добавлено!");
             }
         }
 
@@ -76,7 +78,7 @@ namespace BuyTickets.Forms
             if (comboBox1.SelectedIndex != -1)
             {
                 var path = AppDomain.CurrentDomain.BaseDirectory;
-                pictureBox1.Image = Image.FromFile(path + "/Images/" + _filmList[comboBox1.SelectedIndex].Image);
+                pictureBox1.Image = Image.FromFile(path + "Images/" + _filmList[comboBox1.SelectedIndex].Image);
             }
         }
 

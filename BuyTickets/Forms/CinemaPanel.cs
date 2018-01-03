@@ -6,9 +6,9 @@ using System.Windows.Forms;
 
 namespace BuyTickets.Forms
 {
-    public partial class AddCinema : MaterialForm
+    public partial class CinemaPanel : MaterialForm
     {
-        public AddCinema()
+        public CinemaPanel()
         {
             InitializeComponent();
             var materialSkinManager = MaterialSkinManager.Instance;

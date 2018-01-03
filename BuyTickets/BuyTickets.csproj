@@ -80,29 +80,35 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DB\Database.cs" />
-    <Compile Include="Forms\AboutSession.cs">
+    <Compile Include="Forms\CinemaStatistics.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AboutSession.Designer.cs">
-      <DependentUpon>AboutSession.cs</DependentUpon>
+    <Compile Include="Forms\CinemaStatistics.Designer.cs">
+      <DependentUpon>CinemaStatistics.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AddAdministator.cs">
+    <Compile Include="Forms\SessionInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddAdministator.Designer.cs">
-      <DependentUpon>AddAdministator.cs</DependentUpon>
+    <Compile Include="Forms\SessionInfo.Designer.cs">
+      <DependentUpon>SessionInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AddCinema.cs">
+    <Compile Include="Forms\PermissionsPanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddCinema.Designer.cs">
-      <DependentUpon>AddCinema.cs</DependentUpon>
+    <Compile Include="Forms\PermissionsPanel.Designer.cs">
+      <DependentUpon>PermissionsPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AddFilm.cs">
+    <Compile Include="Forms\CinemaPanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddFilm.Designer.cs">
-      <DependentUpon>AddFilm.cs</DependentUpon>
+    <Compile Include="Forms\CinemaPanel.Designer.cs">
+      <DependentUpon>CinemaPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FilmPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FilmPanel.Designer.cs">
+      <DependentUpon>FilmPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AddSession.cs">
       <SubType>Form</SubType>
@@ -134,11 +140,11 @@
     <Compile Include="Forms\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Main.cs">
+    <Compile Include="Forms\MainFormWithFilms.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Main.Designer.cs">
-      <DependentUpon>Main.cs</DependentUpon>
+    <Compile Include="Forms\MainFormWithFilms.Designer.cs">
+      <DependentUpon>MainFormWithFilms.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Personal.cs">
       <SubType>Form</SubType>
@@ -149,6 +155,7 @@
     <Compile Include="Models\BalanceHistory.cs" />
     <Compile Include="Models\BuyTicketsContext.cs" />
     <Compile Include="Models\Cinema.cs" />
+    <Compile Include="Models\CinemaStatistic.cs" />
     <Compile Include="Models\Film.cs" />
     <Compile Include="Models\OccSeat.cs" />
     <Compile Include="Models\Session.cs" />
@@ -161,17 +168,20 @@
     <Compile Include="Forms\Register.Designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Forms\AboutSession.resx">
-      <DependentUpon>AboutSession.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\CinemaStatistics.resx">
+      <DependentUpon>CinemaStatistics.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AddAdministator.resx">
-      <DependentUpon>AddAdministator.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\SessionInfo.resx">
+      <DependentUpon>SessionInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AddCinema.resx">
-      <DependentUpon>AddCinema.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\PermissionsPanel.resx">
+      <DependentUpon>PermissionsPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AddFilm.resx">
-      <DependentUpon>AddFilm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\CinemaPanel.resx">
+      <DependentUpon>CinemaPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FilmPanel.resx">
+      <DependentUpon>FilmPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddSession.resx">
       <DependentUpon>AddSession.cs</DependentUpon>
@@ -188,8 +198,8 @@
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Main.resx">
-      <DependentUpon>Main.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MainFormWithFilms.resx">
+      <DependentUpon>MainFormWithFilms.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Personal.resx">
       <DependentUpon>Personal.cs</DependentUpon>

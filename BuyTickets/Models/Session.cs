@@ -16,5 +16,10 @@ namespace BuyTickets.Models
         {
             OccSeats = new List<OccSeat>();
         }
+
+        public int GetOccSeatsCount()
+        {
+            return OccSeats.Count;
+        }
     }
 }

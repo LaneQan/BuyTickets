@@ -33,7 +33,7 @@ namespace BuyTickets.Forms
         {
              Font defaultFont = new Font("Microsoft Sans Serif", 16);
              SetHeight(listView1, 25);
-             List<BalanceHistory> balanceHistoryList = Database.getBalanceHistoryById(_user.Id);
+             List<BalanceHistory> balanceHistoryList = Database.GetBalanceHistoryById(_user.Id);
              foreach (var k in balanceHistoryList)
              {
                  ListViewItem li = new ListViewItem();

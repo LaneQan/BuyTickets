@@ -25,7 +25,7 @@ namespace BuyTickets.Forms
 
         private void materialFlatButton4_Click(object sender, EventArgs e)
         {
-            AddAdministator form = new AddAdministator();
+            PermissionsPanel form = new PermissionsPanel();
             form.Show();
         }
 
@@ -37,13 +37,19 @@ namespace BuyTickets.Forms
 
         private void materialFlatButton5_Click(object sender, EventArgs e)
         {
-            AddCinema form = new AddCinema();
+            CinemaPanel form = new CinemaPanel();
             form.Show();
         }
 
         private void materialFlatButton3_Click(object sender, EventArgs e)
         {
-            AddFilm form = new AddFilm();
+            FilmPanel form = new FilmPanel();
+            form.Show();
+        }
+
+        private void materialFlatButton6_Click(object sender, EventArgs e)
+        {
+            CinemaStatistics form = new CinemaStatistics();
             form.Show();
         }
     }

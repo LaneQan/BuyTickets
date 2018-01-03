@@ -1,6 +1,6 @@
 ﻿namespace BuyTickets.Forms
 {
-    partial class AddCinema
+    partial class CinemaPanel
     {
         /// <summary>
         /// Required designer variable.

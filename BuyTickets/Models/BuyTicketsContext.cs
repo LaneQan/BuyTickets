@@ -6,6 +6,7 @@ namespace BuyTickets.Models
     {
         public BuyTicketsContext() : base("DbConnection")
         {
+         
         }
 
         public DbSet<BalanceHistory> BalanceHistory { get; set; }

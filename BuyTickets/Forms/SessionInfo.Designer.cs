@@ -1,6 +1,6 @@
 ﻿namespace BuyTickets.Forms
 {
-    partial class AboutSession
+    partial class SessionInfo
     {
         /// <summary>
         /// Required designer variable.
@@ -558,7 +558,7 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // AboutSession
+            // SessionInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -573,7 +573,9 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.listBox1);
-            this.Name = "AboutSession";
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "SessionInfo";
             this.Text = "Выбор сеанса";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.AboutSession_Load);

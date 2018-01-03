@@ -1,6 +1,6 @@
 ﻿namespace BuyTickets.Forms
 {
-    partial class AddAdministator
+    partial class PermissionsPanel
     {
         /// <summary>
         /// Required designer variable.
@@ -72,7 +72,7 @@
             this.materialLabel1.Depth = 0;
             this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel1.Location = new System.Drawing.Point(75, 88);
+            this.materialLabel1.Location = new System.Drawing.Point(66, 78);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
             this.materialLabel1.Size = new System.Drawing.Size(205, 19);
@@ -95,7 +95,7 @@
             this.materialFlatButton2.UseVisualStyleBackColor = true;
             this.materialFlatButton2.Click += new System.EventHandler(this.materialFlatButton2_Click);
             // 
-            // AddAdministator
+            // PermissionsPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -104,7 +104,7 @@
             this.Controls.Add(this.materialLabel1);
             this.Controls.Add(this.materialSingleLineTextField1);
             this.Controls.Add(this.materialFlatButton1);
-            this.Name = "AddAdministator";
+            this.Name = "PermissionsPanel";
             this.Text = "Управление правами администратора";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddAdministator_FormClosed);
             this.Load += new System.EventHandler(this.AddAdministator_Load);

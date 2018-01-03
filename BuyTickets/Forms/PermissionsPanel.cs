@@ -6,9 +6,9 @@ using BuyTickets.DB;
 
 namespace BuyTickets.Forms
 {
-    public partial class AddAdministator : MaterialForm
+    public partial class PermissionsPanel : MaterialForm
     {
-        public AddAdministator()
+        public PermissionsPanel()
         {
             InitializeComponent();
             var materialSkinManager = MaterialSkinManager.Instance;

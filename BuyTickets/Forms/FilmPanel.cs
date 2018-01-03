@@ -10,13 +10,13 @@ using System.Windows.Forms;
 
 namespace BuyTickets.Forms
 {
-    public partial class AddFilm : MaterialForm
+    public partial class FilmPanel : MaterialForm
     {
         public string FilePath;
         private List<Film> filmList;
         private Film currentFilm;
 
-        public AddFilm()
+        public FilmPanel()
         {
             InitializeComponent();
             var materialSkinManager = MaterialSkinManager.Instance;

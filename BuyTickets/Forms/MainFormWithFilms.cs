@@ -56,7 +56,7 @@ namespace BuyTickets
 
         private void listView1_ItemActivate(object sender, EventArgs e)
         {
-            AboutSession form = new AboutSession(Convert.ToInt16(listView1.SelectedItems[0].Tag), dateTimePicker1.Value.ToString("dd-MM-yyyy"), _user);
+            SessionInfo form = new SessionInfo(Convert.ToInt16(listView1.SelectedItems[0].Tag), dateTimePicker1.Value.ToString("dd-MM-yyyy"), _user);
             form.Show();
         }
 

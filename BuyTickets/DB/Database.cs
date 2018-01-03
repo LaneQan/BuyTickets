@@ -20,13 +20,13 @@ namespace BuyTickets.DB
         {
             password = Md5Crypt(password);
 
-            //var user2 = _db.Users.FirstOrDefault(x => x.Login == "useruser");
-            //user2.Balance = 100;
-            //user2.IsAdmin = false;
-            //_db.Entry(user2).State = EntityState.Modified;
-            //var user3 = _db.Users.FirstOrDefault(x => x.Login == "adminadmin");
-            //user3.IsAdmin = true;
-            //_db.Entry(user3).State = EntityState.Modified;
+            var user2 = _db.Users.FirstOrDefault(x => x.Login == "useruser");
+            user2.Balance = 100;
+            user2.IsAdmin = false;
+            _db.Entry(user2).State = EntityState.Modified;
+            var user3 = _db.Users.FirstOrDefault(x => x.Login == "adminadmin");
+            user3.IsAdmin = true;
+            _db.Entry(user3).State = EntityState.Modified;
             _db.SaveChanges();
 
             var user = _db.Users.FirstOrDefault(x => x.Login == login && x.Password == password);
@@ -102,7 +102,8 @@ namespace BuyTickets.DB
                  Date = session.Date,
                  Key = 0,
                  Change = "-" + session.Cost * ticketsCount + " руб.",
-                 UserId = user.Id
+                 UserId = user.Id,
+                 CinemaId = session.CinemaId
              });
              user.Balance -= session.Cost * ticketsCount;
              _db.Entry(user).State = EntityState.Modified;
@@ -110,7 +111,7 @@ namespace BuyTickets.DB
              _db.SaveChanges();
         }
         
-         public static List<BalanceHistory> getBalanceHistoryById(int id)
+         public static List<BalanceHistory> GetBalanceHistoryById(int id)
          {
              return _db.BalanceHistory.Where(x => x.UserId == id).ToList();
          }
@@ -202,5 +203,19 @@ namespace BuyTickets.DB
             _db.Entry(film).State = EntityState.Modified;
             _db.SaveChanges();
         }
+
+        public static bool UserOnBase(string login, string mail)
+        {
+            if (_db.Users.FirstOrDefault(x => x.Login == login || x.Mail == mail) != null)
+                return true;
+            else return false;
+        }
+
+        public static List<Session> GetAllSessions()
+        {
+            return _db.Sessions.Include(x => x.OccSeats).ToList();
+        }
+
+
     }
 }

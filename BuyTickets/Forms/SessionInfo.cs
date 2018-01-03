@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace BuyTickets.Forms
 {
-    public partial class AboutSession : MaterialForm
+    public partial class SessionInfo : MaterialForm
     {
         private int NumberOfTickets;
 
@@ -22,7 +22,7 @@ namespace BuyTickets.Forms
         private User user;
         private string date;
 
-        public AboutSession(int filmId, string date, User user)
+        public SessionInfo(int filmId, string date, User user)
         {
             InitializeComponent();
             var materialSkinManager = MaterialSkinManager.Instance;
@@ -54,6 +54,7 @@ namespace BuyTickets.Forms
             foreach (Control ctrl in panel.Controls)
             {
                 ctrl.BackColor = Color.White;
+                ctrl.Enabled = true;
             }
             materialLabel3.Text = @"Количество билетов: 0 шт.";
             materialLabel4.Text = @"Общая цена: 0 руб.";
@@ -69,10 +70,10 @@ namespace BuyTickets.Forms
                 {
                     if (user.Balance >= NumberOfTickets * currentSession.Cost)
                     {
-                        var result = MessageBox.Show(@"Количество билетов: " + NumberOfTickets+
-                                                     @".\nСумма к оплате: " +
+                        var result = MessageBox.Show("Количество билетов: " + NumberOfTickets+
+                                                     ".\nСумма к оплате: " +
                                                      Convert.ToString(NumberOfTickets * currentSession.Cost) +
-                                                     @" руб.\nВы подтверждаете покупку?", @"Подтверждение покупки",
+                                                     " руб.\nВы подтверждаете покупку?", @"Подтверждение покупки",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (result == DialogResult.Yes)
                         {

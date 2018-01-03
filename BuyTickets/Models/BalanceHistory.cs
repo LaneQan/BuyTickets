@@ -8,5 +8,6 @@
         public string Change { get; set; }
         public string Date { get; set; }
         public int Key { get; set; }
+        public int CinemaId { get; set; }
     }
 }
