@@ -3,7 +3,9 @@ using BuyTickets.Models;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace BuyTickets.Forms
@@ -11,6 +13,8 @@ namespace BuyTickets.Forms
     public partial class AddFilm : MaterialForm
     {
         public string FilePath;
+        private List<Film> filmList;
+        private Film currentFilm;
 
         public AddFilm()
         {
@@ -22,6 +26,9 @@ namespace BuyTickets.Forms
 
         private void AddFilm_Load(object sender, EventArgs e)
         {
+            filmList = Database.GetAllFilms();
+            foreach (var k in filmList.OrderByDescending(x => x.Id).ToList())
+                listBox1.Items.Add(k.Name);
         }
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
@@ -66,6 +73,30 @@ namespace BuyTickets.Forms
             materialSingleLineTextField1.Text = null;
             richTextBox1.Text = null;
             FilePath = null;
+        }
+
+        private void materialRaisedButton5_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex != -1)
+            {
+                currentFilm = filmList[listBox1.SelectedIndex];
+                richTextBox1.Text = currentFilm.Description;
+                materialSingleLineTextField1.Text = currentFilm.Name;
+                pictureBox1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory +@"\Images\"+ currentFilm.Image);
+            }
+            else MessageBox.Show(@"Не выбран фильм");
+        }
+
+        private void materialRaisedButton6_Click(object sender, EventArgs e)
+        {
+            if (currentFilm != null)
+            {
+                currentFilm.Name = materialSingleLineTextField1.Text;
+                currentFilm.Description = richTextBox1.Text;
+                Database.UpdateFilm(currentFilm);
+                MessageBox.Show(@"Успешно сохранено!");
+            }
+            else MessageBox.Show(@"Не выбран фильм");
         }
     }
 }

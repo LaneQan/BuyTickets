@@ -1,6 +1,8 @@
 ﻿using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
+using System.Windows.Forms;
+using BuyTickets.DB;
 
 namespace BuyTickets.Forms
 {
@@ -29,21 +31,16 @@ namespace BuyTickets.Forms
 
         private void materialFlatButton1_Click(object sender, EventArgs e)
         {
-            /*Database DB = new Database();
-            if (DB.userOnBase(materialSingleLineTextField1.Text, "xx"))
-            {
-                if (DB.isAdmin(materialSingleLineTextField1.Text))
-                {
-                    DB.changePermissions(materialSingleLineTextField1.Text, 0);
-                    MessageBox.Show("Права изменены с 'Администратор' на 'Пользователь'!");
-                }
-                else
-                {
-                    DB.changePermissions(materialSingleLineTextField1.Text, 1);
-                    MessageBox.Show("Права изменены с 'Пользователь' на 'Администратор'!");
-                }
-            }
-            else MessageBox.Show("Данный пользователь не зарегистрирован!");*/
+            if (Database.ChangePermissions(materialSingleLineTextField1.Text, true))
+                MessageBox.Show(@"Успешно изменено");
+            else MessageBox.Show(@"Пользователь не найден");
+        }
+
+        private void materialFlatButton2_Click(object sender, EventArgs e)
+        {
+            if(Database.ChangePermissions(materialSingleLineTextField1.Text, false))
+            MessageBox.Show(@"Успешно изменено");
+            else MessageBox.Show(@"Пользователь не найден");
         }
     }
 }

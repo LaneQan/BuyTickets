@@ -59,13 +59,6 @@ namespace BuyTickets.DB
             await _db.SaveChangesAsync();
         }
 
-        public static bool UserOnBase(string login, string mail)
-        {
-            var user = _db.Users.FirstOrDefault(x => x.Login == login || x.Mail == mail);
-            if (user != null)
-                return true;
-            else return false;
-        }
 
         public static string Md5Crypt(string toCrypt)
         {
@@ -78,25 +71,20 @@ namespace BuyTickets.DB
             return sb.ToString();
         }
 
-        public static async Task<bool> IsAdmin(string login)
+
+        public static bool ChangePermissions(string login, bool isAdmin)
         {
-            var user = await _db.Users.FirstOrDefaultAsync(x => x.Login == login);
-            return user.IsAdmin;
+            var user = _db.Users.FirstOrDefault(x => x.Login == login);
+            if (user == null) return false;
+            else
+            {
+                user.IsAdmin = isAdmin;
+                _db.Entry(user).State = EntityState.Modified;
+                _db.SaveChanges();
+                return true;
+            }
         }
 
-        public static async void ChangePermissions(string login, bool isAdmin)
-        {
-            var user = await _db.Users.FirstOrDefaultAsync(x => x.Login == login);
-            user.IsAdmin = isAdmin;
-            _db.Entry(user).State = EntityState.Modified;
-            await _db.SaveChangesAsync();
-        }
-
-        public static async Task<string> ReturnDescription(int id)
-        {
-            var film = await _db.Films.FirstOrDefaultAsync(x => x.Id == id);
-            return film.Name + "\n\n" + film.Description;
-        }
 
         
 
@@ -207,6 +195,12 @@ namespace BuyTickets.DB
                 user.Password = Md5Crypt(newPassword);
                 _db.Entry(user).State = EntityState.Modified;
                 _db.SaveChanges();
+        }
+
+        public static void UpdateFilm(Film film)
+        {
+            _db.Entry(film).State = EntityState.Modified;
+            _db.SaveChanges();
         }
     }
 }

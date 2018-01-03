@@ -20,6 +20,7 @@ namespace BuyTickets.Forms
         private List<Session> sessions;
         private Session currentSession;
         private User user;
+        private string date;
 
         public AboutSession(int filmId, string date, User user)
         {
@@ -28,6 +29,7 @@ namespace BuyTickets.Forms
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             film = Database.GetFilmById(filmId);
+            this.date = date;
             sessions = Database.GetSessionsByIdAndDate(filmId, date);
             NumberOfTickets = 0;
             this.user = user;
@@ -35,7 +37,7 @@ namespace BuyTickets.Forms
 
         private void AboutSession_Load(object sender, EventArgs e)
         {
-            pictureBox1.Image = Image.FromFile(System.AppDomain.CurrentDomain.BaseDirectory + @"\Images\" + film.Image);
+            pictureBox1.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + @"\Images\" + film.Image);
             var input = film.Description;
             var lines_1 = Regex.Split(input, @"(.{1," + 55 + @"})(?:\s|$)")
                         .Where(x => x.Length > 0)
@@ -45,15 +47,16 @@ namespace BuyTickets.Forms
                 comboBox1.Items.Add(Database.GetCinemaNameById(p.CinemaId));
         }
 
-        private void setAllComponentsNull(Panel panel)
+        private void SetAllComponentsNull(Panel panel)
         {
+            sessions = Database.GetSessionsByIdAndDate(film.Id, date);
             NumberOfTickets = 0;
             foreach (Control ctrl in panel.Controls)
             {
                 ctrl.BackColor = Color.White;
             }
-            materialLabel3.Text = "Количество билетов: 0 шт.";
-            materialLabel4.Text = "Общая цена: 0 руб.";
+            materialLabel3.Text = @"Количество билетов: 0 шт.";
+            materialLabel4.Text = @"Общая цена: 0 руб.";
         }
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
@@ -66,10 +69,10 @@ namespace BuyTickets.Forms
                 {
                     if (user.Balance >= NumberOfTickets * currentSession.Cost)
                     {
-                        var result = MessageBox.Show("Количество билетов: " + NumberOfTickets.ToString() +
-                                                     ".\nСумма к оплате: " +
+                        var result = MessageBox.Show(@"Количество билетов: " + NumberOfTickets+
+                                                     @".\nСумма к оплате: " +
                                                      Convert.ToString(NumberOfTickets * currentSession.Cost) +
-                                                     " руб.\nВы подтверждаете покупку?", "Подтверждение покупки",
+                                                     @" руб.\nВы подтверждаете покупку?", @"Подтверждение покупки",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (result == DialogResult.Yes)
                         {
@@ -80,8 +83,8 @@ namespace BuyTickets.Forms
                                     btnList.Add(ctrl.Name);
                             }
                             Database.UpdateSeatsBalanceAndHistory(user, currentSession, NumberOfTickets, btnList);
-                            materialLabel3.Text = "Количество билетов: 0 шт.";
-                            materialLabel4.Text = "Общая цена: 0 руб.";
+                            materialLabel3.Text = @"Количество билетов: 0 шт.";
+                            materialLabel4.Text = @"Общая цена: 0 руб.";
                             foreach (Control ctrl in panel1.Controls)
                             {
                                 if (ctrl.BackColor == Color.Green)
@@ -93,21 +96,21 @@ namespace BuyTickets.Forms
                             Main fc = (Main) Application.OpenForms["Main"];
                             if (fc != null)
                             {
-                                fc.balance.Text = "Баланс: " + Convert.ToString(user.Balance) + " руб";
+                                fc.balance.Text = @"Баланс: " + user.Balance + @" руб";
                             }
-                            MessageBox.Show("Благодарим за покупку!");
+                            MessageBox.Show(@"Благодарим за покупку!");
                         }
                     }
-                    else MessageBox.Show("Недостаточно денег на балансе!");
+                    else MessageBox.Show(@"Недостаточно денег на балансе!");
                 }
-                else MessageBox.Show("Выберите места для покупки!");
+                else MessageBox.Show(@"Выберите места для покупки!");
             }
-            else MessageBox.Show("Вы не можете приобрести билеты на данный сеанс!");
+            else MessageBox.Show(@"Вы не можете приобрести билеты на данный сеанс!");
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            setAllComponentsNull(panel1);
+            SetAllComponentsNull(panel1);
             if (panel1.Visible)
                 panel1.Visible = false;
             sessions = sessions.Where(x => x.CinemaId == Database.GetIdByCinemaName(comboBox1.SelectedItem.ToString()))
@@ -123,7 +126,7 @@ namespace BuyTickets.Forms
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            setAllComponentsNull(panel1);
+            SetAllComponentsNull(panel1);
             if (!panel1.Visible)
                 panel1.Visible = true;
             materialRaisedButton1.Visible = true;
@@ -147,8 +150,8 @@ namespace BuyTickets.Forms
              {
                  myButton.BackColor = Color.White;
                  NumberOfTickets--;
-                 materialLabel3.Text = "Количество билетов: " + Convert.ToString(NumberOfTickets) + " шт.";
-                 materialLabel4.Text = "Общая цена: " + Convert.ToString(NumberOfTickets * currentSession.Cost) + " руб.";
+                 materialLabel3.Text = @"Количество билетов: " + Convert.ToString(NumberOfTickets) + @" шт.";
+                 materialLabel4.Text = @"Общая цена: " + Convert.ToString(NumberOfTickets * currentSession.Cost) + @" руб.";
              }
              else
              {
